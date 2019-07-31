@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="url">
+        <item>http://mms.jiemi.lieying.cn/sv/2d7dd01e-16c41514779/2d7dd01e-16c41514779.mp4?auth_key=1564543167-732078a07dc64bf69fbe1d55a2655d14-0-ba330d0ce785b8efebce91e31085e0d2</item>
+        <item>http://mms.jiemi.lieying.cn/sv/a1e8190-16c40f58e8e/a1e8190-16c40f58e8e.mp4?auth_key=1564537310-730dd221b8e84b16ab464720283cb405-0-69b539b5a9dcbc3866a2332576ab9e6a</item>
+        <item>http://mms.jiemi.lieying.cn/sv/49c5a105-16c41bc80ef/49c5a105-16c41bc80ef.mp4</item>
+        <item>http://mms.jiemi.lieying.cn/sv/58cc8316-16c4152fdb4/58cc8316-16c4152fdb4.mp4?auth_key=1564543279-42f7f4ec08614825906c7174ff170d88-0-825f2cc668cd2357c38b4ecc72fa4258</item>
+        <item>http://mms.jiemi.lieying.cn/sv/352e56f9-16c40f58e91/352e56f9-16c40f58e91.mp4?auth_key=1564537207-1fb1c493212841178e27dbf6f00d3014-0-dfe2c15286ecab74a88660a4d3724e2c</item>
+        <item>http://mms.jiemi.lieying.cn/sv/5cdc8234-16c40f58e8e/5cdc8234-16c40f58e8e.mp4?auth_key=1564537490-654398ffe82a4964924f68913baa6ebb-0-4a2648a9d2d83b498d21a34a8ab799a0</item>
+    </array>
+</resources>

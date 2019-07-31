@@ -14,4 +14,10 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+    public class Person {
+        final String sex;
+        public Person() {
+            this.sex = "男";
+        }
+    }
 }

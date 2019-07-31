@@ -30,6 +30,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import static com.github.mycardview.RoundRectDrawableWithShadow.calculateHorizontalPadding;
 import static com.github.mycardview.RoundRectDrawableWithShadow.calculateVerticalPadding;
@@ -98,6 +99,7 @@ class RoundRectDrawable extends Drawable {
         }
 
         canvas.drawRoundRect(mBoundsF, mRadius, mRadius, paint);
+        Log.e("=====","====="+mBoundsF.toString());
 
         if (clearColorFilter) {
             paint.setColorFilter(null);

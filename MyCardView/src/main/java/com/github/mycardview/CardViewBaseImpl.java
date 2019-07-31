@@ -38,17 +38,20 @@ class CardViewBaseImpl implements CardViewImpl {
             @Override
             public void drawRoundRect(Canvas canvas, RectF bounds, float cornerRadius,
                     Paint paint) {
+//                paint.setColor(Color.parseColor("#36D81B60"));
                 final float twoRadius = cornerRadius * 2;
                 final float innerWidth = bounds.width() - twoRadius - 1;
                 final float innerHeight = bounds.height() - twoRadius - 1;
                 if (cornerRadius >= 1f) {
                     // increment corner radius to account for half pixels.
                     float roundedCornerRadius = cornerRadius + .5f;
-                    mCornerRect.set(-roundedCornerRadius, -roundedCornerRadius, roundedCornerRadius,
-                            roundedCornerRadius);
+                    mCornerRect.set(-roundedCornerRadius, -roundedCornerRadius, roundedCornerRadius,roundedCornerRadius);
                     int saved = canvas.save();
                     canvas.translate(bounds.left + roundedCornerRadius,
                             bounds.top + roundedCornerRadius);
+//                    paint.setColor(Color.BLUE);
+//                    canvas.drawRect(mCornerRect,paint);
+//                    paint.setColor(Color.parseColor("#36D81B60"));
                     canvas.drawArc(mCornerRect, 180, 90, true, paint);
                     canvas.translate(innerWidth, 0);
                     canvas.rotate(90);
@@ -61,17 +64,12 @@ class CardViewBaseImpl implements CardViewImpl {
                     canvas.drawArc(mCornerRect, 180, 90, true, paint);
                     canvas.restoreToCount(saved);
                     //draw top and bottom pieces
-                    canvas.drawRect(bounds.left + roundedCornerRadius - 1f, bounds.top,
-                            bounds.right - roundedCornerRadius + 1f,
-                            bounds.top + roundedCornerRadius, paint);
+                    canvas.drawRect(bounds.left + roundedCornerRadius - 1f, bounds.top,bounds.right - roundedCornerRadius + 1f,bounds.top + roundedCornerRadius, paint);
 
-                    canvas.drawRect(bounds.left + roundedCornerRadius - 1f,
-                            bounds.bottom - roundedCornerRadius,
-                            bounds.right - roundedCornerRadius + 1f, bounds.bottom, paint);
+                    canvas.drawRect(bounds.left + roundedCornerRadius - 1f,bounds.bottom - roundedCornerRadius,bounds.right - roundedCornerRadius + 1f, bounds.bottom, paint);
                 }
                 // center
-                canvas.drawRect(bounds.left, bounds.top + cornerRadius,
-                        bounds.right, bounds.bottom - cornerRadius , paint);
+                canvas.drawRect(bounds.left, bounds.top + cornerRadius,bounds.right, bounds.bottom - cornerRadius , paint);
             }
         };
     }
@@ -101,6 +99,8 @@ class CardViewBaseImpl implements CardViewImpl {
                 (int) Math.ceil(getMinHeight(cardView)));
         cardView.setShadowPadding(shadowPadding.left, shadowPadding.top,
                 shadowPadding.right, shadowPadding.bottom);
+
+
     }
 
     @Override

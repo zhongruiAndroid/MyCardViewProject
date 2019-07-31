@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 
 @RequiresApi(21)
@@ -31,7 +32,7 @@ class CardViewApi21Impl implements CardViewImpl {
         cardView.setCardBackground(background);
 
         View view = cardView.getCardView();
-        view.setClipToOutline(true);
+        view.setClipToOutline(false);
         view.setElevation(elevation);
         setMaxElevation(cardView, maxElevation);
     }
@@ -47,8 +48,7 @@ class CardViewApi21Impl implements CardViewImpl {
 
     @Override
     public void setMaxElevation(CardViewDelegate cardView, float maxElevation) {
-        getCardBackground(cardView).setPadding(maxElevation,
-                cardView.getUseCompatPadding(), cardView.getPreventCornerOverlap());
+        getCardBackground(cardView).setPadding(maxElevation, cardView.getUseCompatPadding(), cardView.getPreventCornerOverlap());
         updatePadding(cardView);
     }
 

@@ -5,21 +5,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:gravity="center"
-    >
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <com.github.mycardview.MyCardView
+    <Button
+        android:id="@+id/btList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="列表"
+        />
+<com.github.mycardview.MyCardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardElevation="13dp"
+    app:contentPadding="10dp"
+    >
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="android"
+        android:gravity="center"
+        android:background="#ffffff"
+        />
+</com.github.mycardview.MyCardView>
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardElevation="16dp"
-        >
+        android:elevation="10dp"
+        android:background="#ffffff"
+        android:padding="20dp">
         <TextView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="Hello World!"
+            android:text="androidandroidandroid"
             android:gravity="center"
+            android:background="#ffffff"
             />
-    </com.github.mycardview.MyCardView>
+    </FrameLayout>
 
 </LinearLayout>
