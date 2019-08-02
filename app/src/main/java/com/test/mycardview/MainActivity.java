@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goList() {
+        //adb shell dumpsys activity activities
         startActivity(new Intent(this,Main2Activity.class));
     }
 }
