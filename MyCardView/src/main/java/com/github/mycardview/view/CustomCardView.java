@@ -32,61 +32,211 @@ public class CustomCardView extends FrameLayout {
     private float shadowStartColorWeight;
     private float shadowCenterColorWeight;
     private float shadowEndColorWeight;
+    private ShadowDrawable shadowDrawable;
 
     public CustomCardView(Context context) {
         super(context);
-        init(null,R.attr.CustomCardViewStyle);
+        init(null, R.attr.CustomCardViewStyle);
     }
+
     public CustomCardView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs,R.attr.CustomCardViewStyle);
+        init(attrs, R.attr.CustomCardViewStyle);
     }
+
     public CustomCardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs,defStyleAttr);
+        init(attrs, defStyleAttr);
     }
 
-    private void init(AttributeSet attrs,int defStyleAttr) {
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CustomCardView,defStyleAttr,R.style.CustomCardView);
+    private void init(AttributeSet attrs, int defStyleAttr) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CustomCardView, defStyleAttr, R.style.CustomCardView);
 
         ColorStateList backgroundColor;
-        if(typedArray.hasValue(R.styleable.CustomCardView_bgColor)){
-            backgroundColor=typedArray.getColorStateList(R.styleable.CustomCardView_bgColor);
-        }else{
+        if (typedArray.hasValue(R.styleable.CustomCardView_bgColor)) {
+            backgroundColor = typedArray.getColorStateList(R.styleable.CustomCardView_bgColor);
+        } else {
             TypedArray array = getContext().obtainStyledAttributes(new int[]{android.R.attr.colorBackground});
-            backgroundColor =ColorStateList.valueOf(array.getColor(0, Color.WHITE));
+            backgroundColor = ColorStateList.valueOf(array.getColor(0, Color.WHITE));
             array.recycle();
         }
 
-        shadowRadius=typedArray.getDimension(R.styleable.CustomCardView_shadowRadius,dp2px(10));
-        shadowRadiusLeft=typedArray.getDimension(R.styleable.CustomCardView_shadowRadiusLeft,0);
-        shadowRadiusTop=typedArray.getDimension(R.styleable.CustomCardView_shadowRadiusTop,0);
-        shadowRadiusRight=typedArray.getDimension(R.styleable.CustomCardView_shadowRadiusRight,0);
-        shadowRadiusBottom=typedArray.getDimension(R.styleable.CustomCardView_shadowRadiusBottom,0);
-        shadowAlpha=typedArray.getDimension(R.styleable.CustomCardView_shadowAlpha,0);
-        shadowWidth=typedArray.getDimension(R.styleable.CustomCardView_shadowWidth,0);
-        shadowOffsetX=typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetX,0);
-        shadowOffsetY=typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetY,0);
+        shadowRadius = typedArray.getDimension(R.styleable.CustomCardView_shadowRadius, dp2px(10));
+        shadowRadiusLeft = typedArray.getDimension(R.styleable.CustomCardView_shadowRadiusLeft, 0);
+        shadowRadiusTop = typedArray.getDimension(R.styleable.CustomCardView_shadowRadiusTop, 0);
+        shadowRadiusRight = typedArray.getDimension(R.styleable.CustomCardView_shadowRadiusRight, 0);
+        shadowRadiusBottom = typedArray.getDimension(R.styleable.CustomCardView_shadowRadiusBottom, 0);
+        shadowAlpha = typedArray.getDimension(R.styleable.CustomCardView_shadowAlpha, 1);
+        shadowWidth = typedArray.getDimension(R.styleable.CustomCardView_shadowWidth, dp2px(10));
+        shadowOffsetX = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetX, 0);
+        shadowOffsetY = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetY, 0);
 
-        shadowStartColor=typedArray.getColor(R.styleable.CustomCardView_shadowStartColor,ContextCompat.getColor(getContext(),R.color.customCardView_default_shadowStartColor));
-        shadowCenterColor=typedArray.getColor(R.styleable.CustomCardView_shadowCenterColor,Color.TRANSPARENT);
-        shadowEndColor=typedArray.getColor(R.styleable.CustomCardView_shadowEndColor,ContextCompat.getColor(getContext(),R.color.customCardView_default_shadowEndColor));
+        shadowStartColor = typedArray.getColor(R.styleable.CustomCardView_shadowStartColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowStartColor));
+        shadowCenterColor = typedArray.getColor(R.styleable.CustomCardView_shadowCenterColor, Color.TRANSPARENT);
+        shadowEndColor = typedArray.getColor(R.styleable.CustomCardView_shadowEndColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowEndColor));
 
-        shadowStartColorWeight=typedArray.getDimension(R.styleable.CustomCardView_shadowStartColorWeight,dp2px(10));
-        shadowCenterColorWeight=typedArray.getDimension(R.styleable.CustomCardView_shadowCenterColorWeight,dp2px(10));
-        shadowEndColorWeight=typedArray.getDimension(R.styleable.CustomCardView_shadowEndColorWeight,dp2px(10));
+        shadowStartColorWeight = typedArray.getDimension(R.styleable.CustomCardView_shadowStartColorWeight, 1);
+        shadowCenterColorWeight = typedArray.getDimension(R.styleable.CustomCardView_shadowCenterColorWeight, 1);
+        shadowEndColorWeight = typedArray.getDimension(R.styleable.CustomCardView_shadowEndColorWeight, 1);
 
         typedArray.recycle();
 
 
-        Drawable drawable=getBGDrawable(backgroundColor);
+        if (shadowAlpha > 1) {
+            shadowAlpha = 1;
+        } else if (shadowAlpha < 0) {
+            shadowAlpha = 0;
+        }
+
+        shadowDrawable = new ShadowDrawable(backgroundColor);
+        shadowDrawable.setAlpha((int) (shadowAlpha * 255));
     }
 
-    private ShadowDrawable getBGDrawable(ColorStateList backgroundColor) {
-        ShadowDrawable shadowDrawable=new ShadowDrawable(backgroundColor);
-        return shadowDrawable;
+    public int getBgColor() {
+        return bgColor;
     }
-    private int dp2px(int value){
-        return (int) (getContext().getResources().getDisplayMetrics().density*value);
+
+    public void setBgColor(int bgColor) {
+        this.bgColor = bgColor;
+        shadowDrawable.setBgColor(bgColor);
+    }
+
+    public float getShadowRadius() {
+        return shadowRadius;
+    }
+
+    public void setShadowRadius(float shadowRadius) {
+        this.shadowRadius = shadowRadius;
+        shadowDrawable.setShadowRadius(shadowRadius);
+    }
+
+    public float getShadowRadiusLeft() {
+        return shadowRadiusLeft;
+    }
+
+    public void setShadowRadiusLeft(float shadowRadiusLeft) {
+        this.shadowRadiusLeft = shadowRadiusLeft;
+        shadowDrawable.setShadowRadiusLeft(shadowRadiusLeft);
+    }
+
+    public float getShadowRadiusTop() {
+        return shadowRadiusTop;
+    }
+
+    public void setShadowRadiusTop(float shadowRadiusTop) {
+        this.shadowRadiusTop = shadowRadiusTop;
+        shadowDrawable.setShadowRadiusTop(shadowRadiusTop);
+    }
+
+    public float getShadowRadiusRight() {
+        return shadowRadiusRight;
+    }
+
+    public void setShadowRadiusRight(float shadowRadiusRight) {
+        this.shadowRadiusRight = shadowRadiusRight;
+        shadowDrawable.setShadowRadiusRight(shadowRadiusRight);
+    }
+
+    public float getShadowRadiusBottom() {
+        return shadowRadiusBottom;
+    }
+
+    public void setShadowRadiusBottom(float shadowRadiusBottom) {
+        this.shadowRadiusBottom = shadowRadiusBottom;
+        shadowDrawable.setShadowRadiusBottom(shadowRadiusBottom);
+    }
+
+    public float getShadowAlpha() {
+        return shadowAlpha;
+    }
+
+    public void setShadowAlpha(float shadowAlpha) {
+        this.shadowAlpha = shadowAlpha;
+        shadowDrawable.setShadowAlpha(shadowAlpha);
+    }
+
+    public float getShadowWidth() {
+        return shadowWidth;
+    }
+
+    public void setShadowWidth(float shadowWidth) {
+        this.shadowWidth = shadowWidth;
+        shadowDrawable.setShadowWidth(shadowWidth);
+    }
+
+    public float getShadowOffsetX() {
+        return shadowOffsetX;
+    }
+
+    public void setShadowOffsetX(float shadowOffsetX) {
+        this.shadowOffsetX = shadowOffsetX;
+        shadowDrawable.setShadowOffsetX(shadowOffsetX);
+    }
+
+    public float getShadowOffsetY() {
+        return shadowOffsetY;
+    }
+
+    public void setShadowOffsetY(float shadowOffsetY) {
+        this.shadowOffsetY = shadowOffsetY;
+        shadowDrawable.setShadowOffsetY(shadowOffsetY);
+    }
+
+    public int getShadowStartColor() {
+        return shadowStartColor;
+    }
+
+    public void setShadowStartColor(int shadowStartColor) {
+        this.shadowStartColor = shadowStartColor;
+        shadowDrawable.setShadowStartColor(shadowStartColor);
+    }
+
+    public int getShadowCenterColor() {
+        return shadowCenterColor;
+    }
+
+    public void setShadowCenterColor(int shadowCenterColor) {
+        this.shadowCenterColor = shadowCenterColor;
+        shadowDrawable.setShadowCenterColor(shadowCenterColor);
+    }
+
+    public int getShadowEndColor() {
+        return shadowEndColor;
+    }
+
+    public void setShadowEndColor(int shadowEndColor) {
+        this.shadowEndColor = shadowEndColor;
+        shadowDrawable.setShadowEndColor(shadowEndColor);
+    }
+
+    public float getShadowStartColorWeight() {
+        return shadowStartColorWeight;
+    }
+
+    public void setShadowStartColorWeight(float shadowStartColorWeight) {
+        this.shadowStartColorWeight = shadowStartColorWeight;
+        shadowDrawable.setShadowStartColorWeight(shadowStartColorWeight);
+    }
+
+    public float getShadowCenterColorWeight() {
+        return shadowCenterColorWeight;
+    }
+
+    public void setShadowCenterColorWeight(float shadowCenterColorWeight) {
+        this.shadowCenterColorWeight = shadowCenterColorWeight;
+        shadowDrawable.setShadowCenterColorWeight(shadowCenterColorWeight);
+    }
+
+    public float getShadowEndColorWeight() {
+        return shadowEndColorWeight;
+    }
+
+    public void setShadowEndColorWeight(float shadowEndColorWeight) {
+        this.shadowEndColorWeight = shadowEndColorWeight;
+        shadowDrawable.setShadowEndColorWeight(shadowEndColorWeight);
+    }
+
+    private int dp2px(int value) {
+        return (int) (getContext().getResources().getDisplayMetrics().density * value);
     }
 }

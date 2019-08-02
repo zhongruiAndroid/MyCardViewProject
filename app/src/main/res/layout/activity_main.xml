@@ -5,16 +5,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
     <Button
-        android:id="@+id/btList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="列表"
-        />
+    android:id="@+id/btList"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="列表"
+    />
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        <LinearLayout
+            android:id="@+id/llContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            >
+        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
 <com.github.mycardview.MyCardView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -29,19 +41,4 @@
         android:background="#ffffff"
         />
 </com.github.mycardview.MyCardView>
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:background="#ffffff"
-        android:padding="20dp">
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="androidandroidandroid"
-            android:gravity="center"
-            android:background="#ffffff"
-            />
-    </FrameLayout>
-
 </LinearLayout>
