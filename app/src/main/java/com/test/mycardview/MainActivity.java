@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.github.mycardview.MyCardView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MyCardView tv;
@@ -47,14 +49,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             llContent.addView(button);
         }
 
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btList:
+                Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("scheme://android.myapp.com/myapp/detail.htm?apkName=com.xunmeng.pinduoduo"));
+                startActivity(intent);
 //                goList();
-                jumpPermission(tag[0]);
+//                jumpPermission(tag[0]);
             break;
         }
     }
