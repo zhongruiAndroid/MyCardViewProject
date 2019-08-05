@@ -15,8 +15,6 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         TextView tv=findViewById(R.id.tv);
-        final TimeCountDown timeCountDown=new TimeCountDown();
-        Log.e("=====","=====start");
        /* timeCountDown.startForMillis(10000, 500, 200, new TimeCountDown.TimeCallback() {
             @Override
             public void onNext(long timeSecond) {
