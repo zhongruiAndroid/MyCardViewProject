@@ -229,17 +229,16 @@ public class CustomCardView extends FrameLayout {
             cornerLeftTopShadowPath.arcTo(new RectF(0,0,reallyShadowRadius*2,reallyShadowRadius*2),180,90);
             cornerLeftTopShadowPath.close();
 
-            int []colors;
+            int []colors={Color.WHITE};
             if(true){
-                colors={Color.WHITE};
             }else{
 
             }
             float b[]={1};
-            leftTopGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,a,b,Shader.TileMode.CLAMP);
-            rightTopGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,a,b,Shader.TileMode.CLAMP);
-            rightBottomGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,a,b,Shader.TileMode.CLAMP);
-            leftBottomGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,a,b,Shader.TileMode.CLAMP);
+            leftTopGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,colors,b,Shader.TileMode.CLAMP);
+            rightTopGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,colors,b,Shader.TileMode.CLAMP);
+            rightBottomGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,colors,b,Shader.TileMode.CLAMP);
+            leftBottomGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,colors,b,Shader.TileMode.CLAMP);
         }
         private void setCornerRightTopShadowPath() {
             Rect bounds = getBounds();
