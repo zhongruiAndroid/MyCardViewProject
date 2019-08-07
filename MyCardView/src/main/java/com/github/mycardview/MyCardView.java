@@ -81,12 +81,12 @@ public class MyCardView extends FrameLayout {
 
     static {
         if (Build.VERSION.SDK_INT >= 21) {
-//            IMPL = new CardViewBaseImpl();
+            IMPL = new CardViewBaseImpl();
 //            IMPL = new CardViewApi17Impl();
-            IMPL = new CardViewApi21Impl();
+//            IMPL = new CardViewApi21Impl();
         } else if (Build.VERSION.SDK_INT >= 17) {
-//            IMPL = new CardViewBaseImpl();
-            IMPL = new CardViewApi17Impl();
+            IMPL = new CardViewBaseImpl();
+//            IMPL = new CardViewApi17Impl();
         } else {
             IMPL = new CardViewBaseImpl();
         }

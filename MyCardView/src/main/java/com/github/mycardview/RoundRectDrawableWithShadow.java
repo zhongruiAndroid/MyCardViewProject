@@ -30,6 +30,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * A rounded rectangle drawable which also includes a shadow around.
@@ -237,7 +238,7 @@ class RoundRectDrawableWithShadow extends Drawable {
             buildComponents(canvas,getBounds());
             mDirty = false;
         }
-//        canvas.translate(0, mRawShadowSize / 2);
+        canvas.translate(0, mRawShadowSize / 2);
         drawShadow(canvas);
         Paint a=new Paint(Paint.ANTI_ALIAS_FLAG);
         a.setStyle(Paint.Style.STROKE);
@@ -245,8 +246,8 @@ class RoundRectDrawableWithShadow extends Drawable {
 //        canvas.drawRect(getBounds(),a);
         a.setColor(Color.BLUE);
         a.setStrokeWidth(4);
-        canvas.drawRect(mCardBounds,a);
-//        canvas.translate(0, -mRawShadowSize / 2);
+//        canvas.drawRect(mCardBounds,a);
+        canvas.translate(0, -mRawShadowSize / 2);
         sRoundRectHelper.drawRoundRect(canvas, mCardBounds, mCornerRadius, mPaint);
     }
 
@@ -258,7 +259,7 @@ class RoundRectDrawableWithShadow extends Drawable {
         // LT
         int saved = canvas.save();
         canvas.translate(mCardBounds.left + inset, mCardBounds.top + inset);
-//        canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
+        canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
         if (drawHorizontalEdges) {
             canvas.drawRect(0, edgeShadowTop,mCardBounds.width() - 2 * inset, -mCornerRadius,mEdgeShadowPaint);
         }
@@ -303,7 +304,7 @@ class RoundRectDrawableWithShadow extends Drawable {
         a.setColor(Color.BLACK);
         canvas.drawRect(innerBounds2,a);
         a.setColor(Color.BLUE);
-//        canvas.drawRect(outerBounds,a);
+        canvas.drawRect(outerBounds,a);
         a.setStrokeWidth(2);
         if (mCornerShadowPath == null) {
             mCornerShadowPath = new Path();

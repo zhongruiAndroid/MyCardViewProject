@@ -38,7 +38,7 @@ class CardViewBaseImpl implements CardViewImpl {
             @Override
             public void drawRoundRect(Canvas canvas, RectF bounds, float cornerRadius,
                     Paint paint) {
-//                paint.setColor(Color.parseColor("#36D81B60"));
+                paint.setColor(Color.parseColor("#36D81B60"));
                 final float twoRadius = cornerRadius * 2;
                 final float innerWidth = bounds.width() - twoRadius - 1;
                 final float innerHeight = bounds.height() - twoRadius - 1;
@@ -49,9 +49,9 @@ class CardViewBaseImpl implements CardViewImpl {
                     int saved = canvas.save();
                     canvas.translate(bounds.left + roundedCornerRadius,
                             bounds.top + roundedCornerRadius);
-//                    paint.setColor(Color.BLUE);
-//                    canvas.drawRect(mCornerRect,paint);
-//                    paint.setColor(Color.parseColor("#36D81B60"));
+                    paint.setColor(Color.BLUE);
+                    canvas.drawRect(mCornerRect,paint);
+                    paint.setColor(Color.parseColor("#36D81B60"));
                     canvas.drawArc(mCornerRect, 180, 90, true, paint);
                     canvas.translate(innerWidth, 0);
                     canvas.rotate(90);

@@ -69,14 +69,16 @@
     <declare-styleable name="CustomCardView">
         <attr name="bgColor" format="color"/>
         <attr name="shadowRadius"    format="dimension"/>
-        <attr name="shadowRadiusLeft"    format="dimension"/>
-        <attr name="shadowRadiusTop"    format="dimension"/>
-        <attr name="shadowRadiusRight"    format="dimension"/>
-        <attr name="shadowRadiusBottom"    format="dimension"/>
+        <attr name="shadowRadiusLeftTop" format="dimension"/>
+        <attr name="shadowRadiusRightTop" format="dimension"/>
+        <attr name="shadowRadiusRightBottom" format="dimension"/>
+        <attr name="shadowRadiusLeftBottom" format="dimension"/>
         <attr name="shadowAlpha"    format="float"/>
         <attr name="shadowWidth"        format="dimension"/>
-        <attr name="shadowOffsetX"        format="dimension"/>
-        <attr name="shadowOffsetY"        format="dimension"/>
+        <attr name="shadowOffsetLeft"        format="dimension"/>
+        <attr name="shadowOffsetTop"        format="dimension"/>
+        <attr name="shadowOffsetRight"        format="dimension"/>
+        <attr name="shadowOffsetBottom"        format="dimension"/>
         <attr name="shadowStartColor"        format="color"/>
         <attr name="shadowCenterColor"        format="color"/>
         <attr name="shadowEndColor"        format="color"/>
@@ -87,14 +89,14 @@
     <style name="Base.CustomCardView" parent="android:Widget">
         <item name="bgColor">@color/customCardView_default_bgColor</item>
         <item name="shadowRadius">@dimen/customCardView_default_shadowRadius</item>
-        <item name="shadowRadiusLeft">@dimen/customCardView_default_shadowRadiusLeft</item>
-        <item name="shadowRadiusTop">@dimen/customCardView_default_shadowRadiusTop</item>
-        <item name="shadowRadiusRight">@dimen/customCardView_default_shadowRadiusRight</item>
-        <item name="shadowRadiusBottom">@dimen/customCardView_default_shadowRadiusBottom</item>
+        <item name="shadowRadiusLeftTop">@dimen/customCardView_default_shadowRadiusLeft</item>
+        <item name="shadowRadiusRightTop">@dimen/customCardView_default_shadowRadiusTop</item>
+        <item name="shadowRadiusRightBottom">@dimen/customCardView_default_shadowRadiusRight</item>
+        <item name="shadowRadiusLeftBottom">@dimen/customCardView_default_shadowRadiusBottom</item>
         <item name="shadowAlpha">1</item>
         <item name="shadowWidth">@dimen/customCardView_default_shadowWidth</item>
-        <item name="shadowOffsetX">@dimen/customCardView_default_shadowOffsetX</item>
-        <item name="shadowOffsetY">@dimen/customCardView_default_shadowOffsetY</item>
+        <item name="shadowOffsetLeft">@dimen/customCardView_default_shadowOffsetX</item>
+        <item name="shadowOffsetTop">@dimen/customCardView_default_shadowOffsetY</item>
         <item name="shadowStartColor">@color/customCardView_default_shadowStartColor</item>
         <item name="shadowCenterColor">@color/customCardView_default_shadowCenterColor</item>
         <item name="shadowEndColor">@color/customCardView_default_shadowEndColor</item>

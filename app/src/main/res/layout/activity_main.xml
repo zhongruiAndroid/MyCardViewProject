@@ -7,44 +7,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <com.github.mycardview.MyCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="13dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="20dp"
+        >
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="android"
+            />
+    </com.github.mycardview.MyCardView>
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         />
+
     <Button
-    android:id="@+id/btList"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="列表"
-    />
+        android:id="@+id/btList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="列表"
+        />
+
     <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
         <LinearLayout
             android:id="@+id/llContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_vertical"
+            android:orientation="vertical"
             >
         </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
-<com.github.mycardview.MyCardView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:cardElevation="13dp"
-    app:contentPadding="10dp"
-    >
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="android"
-        android:gravity="center"
-        android:background="#ffffff"
-        />
-</com.github.mycardview.MyCardView>
+
 </LinearLayout>
