@@ -6,15 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
+
     <com.github.mycardview.MyCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardElevation="13dp"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="20dp"
+        app:cardElevation="13dp"
         >
+
         <TextView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -22,12 +25,32 @@
             android:text="android"
             />
     </com.github.mycardview.MyCardView>
+
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         />
+
+    <com.github.mycardview.view.CustomCardView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        app:shadowWidth="20dp"
+        app:shadowStartColor="#1af2e7eb"
+        app:shadowEndColor="#b7c2215b"
+        app:bgColor="@color/colorAccent1"
+        app:bgRadius="4dp"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="android:"
+
+            />
+    </com.github.mycardview.view.CustomCardView>
 
     <Button
         android:id="@+id/btList"
@@ -36,11 +59,11 @@
         android:text="列表"
         />
 
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
         <LinearLayout
             android:id="@+id/llContent"
             android:layout_width="match_parent"
@@ -50,6 +73,5 @@
             >
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
 
 </LinearLayout>

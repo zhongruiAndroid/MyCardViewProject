@@ -47,6 +47,8 @@ dependencies {
     api(name: 'mylibrary-release', ext: 'aar')
     api(name: 'SimpleDialog-release', ext: 'aar')
 
+    implementation 'com.android.support:cardview-v7:28.+'
+
 
 
 }

@@ -68,11 +68,13 @@
 
     <declare-styleable name="CustomCardView">
         <attr name="bgColor" format="color"/>
-        <attr name="shadowRadius"    format="dimension"/>
-        <attr name="shadowRadiusLeftTop" format="dimension"/>
-        <attr name="shadowRadiusRightTop" format="dimension"/>
-        <attr name="shadowRadiusRightBottom" format="dimension"/>
-        <attr name="shadowRadiusLeftBottom" format="dimension"/>
+        <attr name="bgRadius" format="dimension"/>
+        <attr name="bgRadiusLeftTop" format="dimension"/>
+        <attr name="bgRadiusRightTop" format="dimension"/>
+        <attr name="bgRadiusRightBottom" format="dimension"/>
+        <attr name="bgRadiusLeftBottom" format="dimension"/>
+
+
         <attr name="shadowAlpha"    format="float"/>
         <attr name="shadowWidth"        format="dimension"/>
         <attr name="shadowOffsetLeft"        format="dimension"/>
@@ -85,14 +87,12 @@
         <attr name="shadowStartColorWeight"        format="float"/>
         <attr name="shadowCenterColorWeight"        format="float"/>
         <attr name="shadowEndColorWeight"        format="float"/>
+
     </declare-styleable>
+    <attr name="CustomCardViewStyle" format="reference"/>
+
     <style name="Base.CustomCardView" parent="android:Widget">
         <item name="bgColor">@color/customCardView_default_bgColor</item>
-        <item name="shadowRadius">@dimen/customCardView_default_shadowRadius</item>
-        <item name="shadowRadiusLeftTop">@dimen/customCardView_default_shadowRadiusLeft</item>
-        <item name="shadowRadiusRightTop">@dimen/customCardView_default_shadowRadiusTop</item>
-        <item name="shadowRadiusRightBottom">@dimen/customCardView_default_shadowRadiusRight</item>
-        <item name="shadowRadiusLeftBottom">@dimen/customCardView_default_shadowRadiusBottom</item>
         <item name="shadowAlpha">1</item>
         <item name="shadowWidth">@dimen/customCardView_default_shadowWidth</item>
         <item name="shadowOffsetLeft">@dimen/customCardView_default_shadowOffsetX</item>
@@ -104,17 +104,10 @@
         <item name="shadowCenterColorWeight">0</item>
         <item name="shadowEndColorWeight">1</item>
     </style>
-
     <style name="CustomCardView" parent="Base.CustomCardView">
     </style>
-    <attr name="CustomCardViewStyle" format="reference"/>
 
     <color name="customCardView_default_bgColor">#ffffff</color>
-    <dimen name="customCardView_default_shadowRadius">10dp</dimen>
-    <dimen name="customCardView_default_shadowRadiusLeft">10dp</dimen>
-    <dimen name="customCardView_default_shadowRadiusTop">10dp</dimen>
-    <dimen name="customCardView_default_shadowRadiusRight">10dp</dimen>
-    <dimen name="customCardView_default_shadowRadiusBottom">10dp</dimen>
     <dimen name="customCardView_default_shadowWidth">10dp</dimen>
     <dimen name="customCardView_default_shadowOffsetX">0px</dimen>
     <dimen name="customCardView_default_shadowOffsetY">0px</dimen>

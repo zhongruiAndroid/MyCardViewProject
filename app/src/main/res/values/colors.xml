@@ -3,4 +3,62 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorPrimary1">#18B4ED</color>
+    <color name="colorPrimaryDark1">#18B4ED</color>
+    <color name="colorPrimaryDark2">#87ceeb</color>
+    <color name="colorAccent1">#18B4ED</color>
+
+    <color name="bg_color">#ffffff</color>
+    <color name="app_hint_color">#cccccc</color>
+    <color name="gray_f6">#f6f6f6</color>
+    <color name="gray_f9">#f9f9f9</color>
+    <color name="gray_22">#222222</color>
+    <color name="gray_33">#333333</color>
+    <color name="gray">#666666</color>
+    <color name="gray_66">#666666</color>
+    <color name="gray_99">#999999</color>
+    <color name="gray_cc">#CCCCCC</color>
+    <color name="gray_ea">#eaeaea</color>
+    <color name="gray_ee">#EEEEEE</color>
+    <color name="image_bg">#FFF1EFEF</color>
+    <color name="gray_f3">#f3f3f3</color>
+    <color name="gray_f4">#FFF4F4F4</color>
+    <color name="gray_f0">#F0F0F0</color>
+
+    <color name="share_title">#efefef</color>
+
+    <color name="colorText">#333333</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="pink_red">#fff64673</color>
+
+    <color name="pink_red_start">#F64673</color>
+    <color name="pink_red_end">#FF2646</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent_half">#70000000</color>
+    <color name="transparent_half_darker">#90000000</color>
+    <color name="transparent_half_darker_darker">#a0000000</color>
+    <color name="transparent_half_darker_darker_dark">#b0000000</color>
+    <color name="border_e52">#e5e5e5</color>
+    <color name="border_e5">#B2B2B2</color>
+    <color name="title_bg">#FF353535</color>
+    <color name="c_F8F8F83">#BEC2C7</color>
+    <color name="c_B2B2B2">#B2B2B2</color>
+    <color name="c_23">#232323</color>
+    <color name="c_e3">#e3e3e3</color>
+    <color name="c_f6">#F6F6F6</color>
+    <color name="c_F8F8F82">#DFE4EA</color>
+    <color name="c_cccccc">#cccccc</color>
+    <color name="c_divider">#E2E2E2</color>
+    <color name="c_press">#E2E2E2</color>
+    <color name="c_press_bt">#41A5D6</color>
+
+    <!--<color name="red">#cc0000</color>-->
+
+    <color name="divider_color">#FBD6D6D6</color>
+
+    <color name="disable_background">#d7d7d7</color>
+    <color name="goods_list_sort">#222222</color>
 </resources>

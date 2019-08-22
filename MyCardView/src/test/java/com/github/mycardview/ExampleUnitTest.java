@@ -28,6 +28,7 @@ public class ExampleUnitTest {
     @Test
     public void asddf() {
         List<String> list=new ArrayList<>();
+        list.add(".git");
         list.add("*.iml");
         list.add("*.apk");
         list.add(".gradle/");
