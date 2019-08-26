@@ -68,4 +68,30 @@ public class ExampleUnitTest {
         System.out.println(cd==c);
         System.out.println(cd.equals(c));
     }
+
+    @Test
+    public void sdf() {
+        List<String> list=new ArrayList<>();
+        list.add("bgColor");
+        list.add("bgRadius");
+        list.add("bgRadiusLeftTop");
+        list.add("bgRadiusRightTop");
+        list.add("bgRadiusRightBottom");
+        list.add("bgRadiusLeftBottom");
+        list.add("shadowAlpha");
+        list.add("shadowWidth");
+        list.add("shadowOffsetLeft");
+        list.add("shadowOffsetTop");
+        list.add("shadowOffsetRight");
+        list.add("shadowOffsetBottom");
+        list.add("shadowStartColor");
+        list.add("shadowEndColor");
+        list.add("shadowOutClipLength");
+        list.add("shadowInClipLength");
+
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println();
+        }
+    }
 }
