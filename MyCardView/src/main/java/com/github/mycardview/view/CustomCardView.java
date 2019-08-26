@@ -86,8 +86,8 @@ public class CustomCardView extends FrameLayout {
         shadowEndColor = typedArray.getColor(R.styleable.CustomCardView_shadowEndColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowEndColor));
 
 
-        shadowClipOutLength = typedArray.getDimension(R.styleable.CustomCardView_shadowOutClipLength, 0);
-        shadowClipInLength = typedArray.getDimension(R.styleable.CustomCardView_shadowInClipLength, 0);
+        shadowClipOutLength = typedArray.getDimension(R.styleable.CustomCardView_shadowClipOutLength, 0);
+        shadowClipInLength = typedArray.getDimension(R.styleable.CustomCardView_shadowClipInLength, 0);
 
         typedArray.recycle();
 

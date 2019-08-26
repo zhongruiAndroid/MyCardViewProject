@@ -36,6 +36,8 @@
     <color name="pink_red_start">#F64673</color>
     <color name="pink_red_end">#FF2646</color>
 
+    <color name="startcolor">#06000000</color>
+    <color name="endcolor">#00000000</color>
     <color name="transparent">#00000000</color>
     <color name="transparent_half">#70000000</color>
     <color name="transparent_half_darker">#90000000</color>

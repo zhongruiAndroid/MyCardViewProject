@@ -42,8 +42,6 @@
         app:shadowStartColor="#b7c2215b"
         app:bgRadius="4dp"
         app:bgColor="@color/colorPrimaryDark"
-        app:shadowOutClipLength="0dp"
-        app:shadowInClipLength="10dp"
         >
         <TextView
             android:layout_width="40dp"

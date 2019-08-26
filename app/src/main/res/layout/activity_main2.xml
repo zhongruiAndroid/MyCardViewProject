@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Main2Activity">
+    tools:context=".Main2Activity"
+    android:background="@color/white"
+    >
 
     <com.github.mycardview.view.CustomCardView
         android:id="@+id/ccv"
@@ -14,6 +16,8 @@
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
+        app:shadowStartColor="@color/startcolor"
+        app:shadowEndColor="@color/endcolor"
         >
     </com.github.mycardview.view.CustomCardView>
 </LinearLayout>

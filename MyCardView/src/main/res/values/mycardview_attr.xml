@@ -83,8 +83,8 @@
         <attr name="shadowOffsetBottom"        format="dimension"/>
         <attr name="shadowStartColor"        format="color"/>
         <attr name="shadowEndColor"        format="color"/>
-        <attr name="shadowOutClipLength"     format="dimension"/>
-        <attr name="shadowInClipLength"     format="dimension"/>
+        <attr name="shadowClipOutLength" format="dimension"/>
+        <attr name="shadowClipInLength" format="dimension"/>
 
     </declare-styleable>
     <attr name="CustomCardViewStyle" format="reference"/>
@@ -97,9 +97,6 @@
         <item name="shadowOffsetTop">@dimen/customCardView_default_shadowOffsetY</item>
         <item name="shadowStartColor">@color/customCardView_default_shadowStartColor</item>
         <item name="shadowEndColor">@color/customCardView_default_shadowEndColor</item>
-        <item name="shadowStartColorWeight">1</item>
-        <item name="shadowCenterColorWeight">0</item>
-        <item name="shadowEndColorWeight">1</item>
     </style>
     <style name="CustomCardView" parent="Base.CustomCardView">
     </style>
@@ -109,6 +106,5 @@
     <dimen name="customCardView_default_shadowOffsetX">0px</dimen>
     <dimen name="customCardView_default_shadowOffsetY">0px</dimen>
     <color name="customCardView_default_shadowStartColor">#00000000</color>
-    <color name="customCardView_default_shadowCenterColor">#00000000</color>
     <color name="customCardView_default_shadowEndColor">#e6e6e6</color>
 </resources>
