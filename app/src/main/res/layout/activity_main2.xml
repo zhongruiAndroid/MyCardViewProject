@@ -10,16 +10,67 @@
     tools:context=".Main2Activity"
     >
 
-    <com.github.mycardview.view.CustomCardView
-        android:id="@+id/ccv"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+    <android.support.v7.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        app:shadowEndColor="@color/endcolor"
-        app:shadowStartColor="@color/startcolor"
+        android:layout_marginTop="12dp"
+        app:cardElevation="15dp"
         >
-    </com.github.mycardview.view.CustomCardView>
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <com.github.mycardview.view.CustomCardView
+            android:id="@+id/ccv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white"
+            app:bgRadius="5dp"
+            app:shadowCenterBegin="0"
+            app:shadowClipInLength="0dp"
+            app:shadowEndColor="@color/endcolor"
+            app:shadowStartColor="@color/startcolor"
+            app:shadowWidth="10dp"
+            >
+        </com.github.mycardview.view.CustomCardView>
+
+        <com.github.mycardview.view.CustomCardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white"
+            app:bgRadius="3dp"
+            app:shadowCenterBegin="0.2"
+            app:shadowCenterColor="@color/startcolor"
+            app:shadowClipInLength="0dp"
+            app:shadowEndColor="@color/endcolor"
+            app:shadowStartColor="#0fCCCCCC"
+            app:shadowWidth="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            >
+        </com.github.mycardview.view.CustomCardView>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/ss"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/ss2"
+        android:layout_gravity="center_horizontal"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,15 +81,19 @@
         >
 
         <TextView
+            android:id="@+id/tvStartColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="5"
             android:text="开始颜色"
             />
 
         <android.support.v7.widget.AppCompatSeekBar
             android:id="@+id/sbStartColor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:max="255"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -50,14 +105,17 @@
         >
 
         <TextView
+            android:id="@+id/tvEndColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="5"
             android:text="结束颜色"
             />
 
         <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/endStartColor"
+            android:id="@+id/sbEndColor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:max="255"/>
     </LinearLayout>
 </LinearLayout>

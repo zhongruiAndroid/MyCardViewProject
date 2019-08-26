@@ -1,5 +1,8 @@
 package com.github.mycardview.view;
 
+import android.animation.ArgbEvaluator;
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -17,9 +20,14 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 
 import com.github.mycardview.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /***
  *   created by zhongrui on 2019/7/31
@@ -164,6 +172,7 @@ public class CustomCardView extends FrameLayout {
         private LinearGradient   horizontalBottomLinearGradient;
         /*右边垂直渐变*/
         private LinearGradient verticalRightLinearGradient;
+        private ArgbEvaluator argbEvaluator;
 
         public CustomDrawable() {
             bgPaint =new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DITHER_FLAG);
@@ -175,6 +184,10 @@ public class CustomCardView extends FrameLayout {
         private void setBackground(ColorStateList color){
             backgroundColor=(color==null)?ColorStateList.valueOf(Color.WHITE):color;
             bgPaint.setColor(backgroundColor.getColorForState(getState(),backgroundColor.getDefaultColor()));
+        }
+
+        public void setNeedComputeRect(boolean needComputeRect) {
+            this.needComputeRect = needComputeRect;
         }
 
         @Override
@@ -321,10 +334,30 @@ public class CustomCardView extends FrameLayout {
 
 
 
-            int []radiusColors={getShadowStartColor(),getShadowCenterColor(),getShadowEndColor()};
+//            int []radiusColors={getShadowStartColor(),getShadowCenterColor(),getShadowEndColor()};
+            /*int []radiusColors={
+                    Color.parseColor("#10000000"),
+                    Color.parseColor("#09000000"),
+                    Color.parseColor("#07000000"),
+                    Color.parseColor("#04000000"),
+                    Color.parseColor("#02000000"),
+                    Color.parseColor("#00000000"),
+            };*/
+            if(argbEvaluator==null){
+                argbEvaluator = new ArgbEvaluator();
+            }
+            int []radiusColors={
+                    getShadowStartColor(),
+                    (int) argbEvaluator.evaluate(0.2f,getShadowStartColor(),getShadowEndColor()),
+                    (int) argbEvaluator.evaluate(0.4f,getShadowStartColor(),getShadowEndColor()),
+                    (int) argbEvaluator.evaluate(0.6f,getShadowStartColor(),getShadowEndColor()),
+                    (int) argbEvaluator.evaluate(0.8f,getShadowStartColor(),getShadowEndColor()),
+                    getShadowEndColor(),
+            };
 //            int []lineColors={getShadowStartColor(),getShadowCenterColor(),getShadowEndColor()};
             // TODO: 2019/8/26 需要判断小于0和大于1的情况
-            float scaleLength[]={0f,shadowCenterBegin,1};
+//            float scaleLength[]={0f,shadowCenterBegin,1};
+            float scaleLength[]={0f,0.1f,0.3f,0.5f,0.7f,1};
 
             //如果渲染器起始位置向里调整，horizontalPath,verticalPath则需要偏移，cornerLeftTopShadowPath圆心也需要偏移
             cornerGradient =new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius+shadowClipOutLength,radiusColors,scaleLength,Shader.TileMode.CLAMP);
@@ -524,6 +557,11 @@ public class CustomCardView extends FrameLayout {
 
     private int dp2px(int value) {
         return (int) (getContext().getResources().getDisplayMetrics().density * value);
+    }
+
+    public void complete(){
+        shadowDrawable.setNeedComputeRect(true);
+        this.invalidateDrawable(shadowDrawable);
     }
 
 }
