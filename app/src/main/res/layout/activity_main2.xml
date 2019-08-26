@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Main2Activity"
-    android:background="@color/white"
     >
 
     <com.github.mycardview.view.CustomCardView
@@ -16,8 +16,48 @@
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
-        app:shadowStartColor="@color/startcolor"
         app:shadowEndColor="@color/endcolor"
+        app:shadowStartColor="@color/startcolor"
         >
     </com.github.mycardview.view.CustomCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始颜色"
+            />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/sbStartColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束颜色"
+            />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/endStartColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>

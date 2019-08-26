@@ -40,6 +40,10 @@ public class CustomCardView extends FrameLayout {
     private float shadowOffsetRight;
     private float shadowOffsetBottom;
     private int shadowStartColor;
+
+    private int shadowCenterColor;
+    private float shadowCenterBegin;
+
     private int shadowEndColor;
     private float shadowClipOutLength;
     private float shadowClipInLength;
@@ -84,6 +88,9 @@ public class CustomCardView extends FrameLayout {
 
         shadowStartColor = typedArray.getColor(R.styleable.CustomCardView_shadowStartColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowStartColor));
         shadowEndColor = typedArray.getColor(R.styleable.CustomCardView_shadowEndColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowEndColor));
+
+        shadowCenterColor = typedArray.getColor(R.styleable.CustomCardView_shadowCenterColor,shadowStartColor);
+        shadowCenterBegin = typedArray.getFloat(R.styleable.CustomCardView_shadowCenterBegin,0.3f);
 
 
         shadowClipOutLength = typedArray.getDimension(R.styleable.CustomCardView_shadowClipOutLength, 0);
@@ -314,17 +321,18 @@ public class CustomCardView extends FrameLayout {
 
 
 
-            int []radiusColors={getShadowStartColor(),getShadowEndColor()};
-            int []lineColors={getShadowStartColor(),getShadowEndColor()};
-            float scaleLength[]={0f,1};
+            int []radiusColors={getShadowStartColor(),getShadowCenterColor(),getShadowEndColor()};
+//            int []lineColors={getShadowStartColor(),getShadowCenterColor(),getShadowEndColor()};
+            // TODO: 2019/8/26 需要判断小于0和大于1的情况
+            float scaleLength[]={0f,shadowCenterBegin,1};
 
             //如果渲染器起始位置向里调整，horizontalPath,verticalPath则需要偏移，cornerLeftTopShadowPath圆心也需要偏移
             cornerGradient =new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius+shadowClipOutLength,radiusColors,scaleLength,Shader.TileMode.CLAMP);
 
             /*设置顶部阴影渐变位置*/
-            horizontalLinearGradient=new LinearGradient(0,getShadowWidth()+ shadowClipInLength,0,0-shadowClipOutLength,lineColors,scaleLength,Shader.TileMode.CLAMP);
+            horizontalLinearGradient=new LinearGradient(0,getShadowWidth()+ shadowClipInLength,0,0-shadowClipOutLength,radiusColors,scaleLength,Shader.TileMode.CLAMP);
             /*设置左边阴影渐变位置*/
-            verticalLinearGradient=new LinearGradient(getShadowWidth()+ shadowClipInLength,0,0-shadowClipOutLength,0,lineColors,scaleLength,Shader.TileMode.CLAMP);
+            verticalLinearGradient=new LinearGradient(getShadowWidth()+ shadowClipInLength,0,0-shadowClipOutLength,0,radiusColors,scaleLength,Shader.TileMode.CLAMP);
             /*设置底部阴影渐变位置*/
             horizontalBottomLinearGradient =new LinearGradient(0,0- shadowClipInLength,0,getShadowWidth()+shadowClipOutLength,radiusColors,scaleLength,Shader.TileMode.CLAMP);
             /*设置右边阴影渐变位置*/
@@ -480,6 +488,22 @@ public class CustomCardView extends FrameLayout {
 
     public void setShadowEndColor(int shadowEndColor) {
         this.shadowEndColor = shadowEndColor;
+    }
+
+    public int getShadowCenterColor() {
+        return shadowCenterColor;
+    }
+
+    public void setShadowCenterColor(int shadowCenterColor) {
+        this.shadowCenterColor = shadowCenterColor;
+    }
+
+    public float getShadowCenterBegin() {
+        return shadowCenterBegin;
+    }
+
+    public void setShadowCenterBegin(float shadowCenterBegin) {
+        this.shadowCenterBegin = shadowCenterBegin;
     }
 
     public float getShadowClipOutLength() {

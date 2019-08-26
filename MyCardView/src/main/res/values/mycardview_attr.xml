@@ -82,6 +82,8 @@
         <attr name="shadowOffsetRight"        format="dimension"/>
         <attr name="shadowOffsetBottom"        format="dimension"/>
         <attr name="shadowStartColor"        format="color"/>
+        <attr name="shadowCenterColor"        format="color"/>
+        <attr name="shadowCenterBegin"        format="color"/>
         <attr name="shadowEndColor"        format="color"/>
         <attr name="shadowClipOutLength" format="dimension"/>
         <attr name="shadowClipInLength" format="dimension"/>
