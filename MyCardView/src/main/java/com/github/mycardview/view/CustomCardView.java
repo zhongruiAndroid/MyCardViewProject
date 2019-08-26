@@ -15,8 +15,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -47,6 +45,8 @@ public class CustomCardView extends FrameLayout {
     private float shadowStartColorWeight;
     private float shadowCenterColorWeight;
     private float shadowEndColorWeight;
+    private float shadowClipOutLength;
+    private float shadowClipInLength;
     private CustomDrawable shadowDrawable;
 
     public CustomCardView(Context context) {
@@ -94,6 +94,9 @@ public class CustomCardView extends FrameLayout {
         shadowStartColorWeight = typedArray.getFloat(R.styleable.CustomCardView_shadowStartColorWeight, 1);
         shadowCenterColorWeight = typedArray.getFloat(R.styleable.CustomCardView_shadowCenterColorWeight, 1);
         shadowEndColorWeight = typedArray.getFloat(R.styleable.CustomCardView_shadowEndColorWeight, 1);
+
+        shadowClipOutLength = typedArray.getDimension(R.styleable.CustomCardView_shadowOutClipLength, 0);
+        shadowClipInLength = typedArray.getDimension(R.styleable.CustomCardView_shadowInClipLength, 0);
 
         typedArray.recycle();
 
@@ -155,7 +158,7 @@ public class CustomCardView extends FrameLayout {
         private LinearGradient   horizontalLinearGradient;
         private LinearGradient   verticalLinearGradient;
         private LinearGradient   horizontalBottomLinearGradient;
-        private LinearGradient   verticalBottomLinearGradient;
+        private LinearGradient verticalRightLinearGradient;
 //        private RadialGradient rightTopGradient;
 //        private RadialGradient rightBottomGradient;
 //        private RadialGradient leftBottomGradient;
@@ -235,7 +238,7 @@ public class CustomCardView extends FrameLayout {
             canvas.drawPath(verticalPath,shadowPaint);
             canvas.translate(contentWidth+getShadowWidth(),0);
             /*左边和右边的颜色渐变方向相反，需要重新设置shader*/
-            shadowPaint.setShader(verticalBottomLinearGradient);
+            shadowPaint.setShader(verticalRightLinearGradient);
             canvas.drawPath(verticalPath,shadowPaint);
             canvas.restore();
 
@@ -305,33 +308,39 @@ public class CustomCardView extends FrameLayout {
             } else {
                 cornerLeftTopShadowPath.reset();
             }
-//            cornerLeftTopShadowPath.setFillType(Path.FillType.EVEN_ODD);
-            float reallyShadowRadius=getShadowWidth();
+
+            //设置shadowClipOutLength shadowClipInLength时，去掉圆角和边的重合部分
+            cornerLeftTopShadowPath.setFillType(Path.FillType.EVEN_ODD);
+            cornerLeftTopShadowPath.addRect(new RectF(getShadowWidth(),0,getShadowWidth()+shadowClipInLength,getShadowWidth()+shadowClipInLength),Path.Direction.CW);
+            // TODO: 2019/8/23  
+            cornerLeftTopShadowPath.addRect(new RectF(0,getShadowWidth(),getShadowWidth()+shadowClipInLength,getShadowWidth()+shadowClipInLength),Path.Direction.CW);
+
+            float reallyShadowRadius=getShadowWidth()+shadowClipInLength;
             cornerLeftTopShadowPath.moveTo(reallyShadowRadius,reallyShadowRadius);
             cornerLeftTopShadowPath.arcTo(new RectF(0,0,reallyShadowRadius*2,reallyShadowRadius*2),180,90);
             cornerLeftTopShadowPath.close();
 
             // TODO: 2019/8/22
 
-            int []radiusColors={getShadowEndColor(),getShadowCenterColor(),getShadowStartColor()};
+            int []radiusColors={getShadowStartColor(),getShadowCenterColor(),getShadowEndColor()};
             int []lineColors={getShadowStartColor(),getShadowCenterColor(),getShadowEndColor()};
-            float scaleLength[]={0.4f,0.5f,1};
-            if(getShadowCenterColor()==Color.TRANSPARENT||getShadowCenterColor()<0){
-                 radiusColors=new int[]{getShadowEndColor(),getShadowStartColor()};
-                 lineColors=new int[]{getShadowStartColor(),getShadowEndColor()};
-                 scaleLength =new float[]{0.4f,1};
+            float scaleLength[]={0f,0.5f,1};
+            if(getShadowCenterColor()==Color.TRANSPARENT){
+                 radiusColors=new int[]{getShadowStartColor(),getShadowEndColor()};
+                 lineColors  =new int[]{getShadowStartColor(),getShadowEndColor()};
+                 scaleLength =new float[]{0f,1};
             }
-            leftTopGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,radiusColors,scaleLength,Shader.TileMode.CLAMP);
+            leftTopGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius+shadowClipOutLength,radiusColors,scaleLength,Shader.TileMode.CLAMP);
 //            rightTopGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,radiusColors,scaleLength,Shader.TileMode.CLAMP);
 //            rightBottomGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,radiusColors,scaleLength,Shader.TileMode.CLAMP);
 //            leftBottomGradient=new RadialGradient(reallyShadowRadius,reallyShadowRadius,reallyShadowRadius,radiusColors,scaleLength,Shader.TileMode.CLAMP);
 
 
-            horizontalLinearGradient=new LinearGradient(0,0,0,getShadowWidth(),lineColors,scaleLength,Shader.TileMode.CLAMP);
-            verticalLinearGradient=new LinearGradient(0,0,getShadowWidth(),0,lineColors,scaleLength,Shader.TileMode.CLAMP);
+            horizontalLinearGradient=new LinearGradient(0,getShadowWidth()+ shadowClipInLength,0,0-shadowClipOutLength,lineColors,scaleLength,Shader.TileMode.CLAMP);
+            verticalLinearGradient=new LinearGradient(getShadowWidth()+ shadowClipInLength,0,0-shadowClipOutLength,0,lineColors,scaleLength,Shader.TileMode.CLAMP);
 
-            horizontalBottomLinearGradient=new LinearGradient(0,0,0,getShadowWidth(),radiusColors,scaleLength,Shader.TileMode.CLAMP);
-            verticalBottomLinearGradient=new LinearGradient(0,0,getShadowWidth(),0,radiusColors,scaleLength,Shader.TileMode.CLAMP);
+            horizontalBottomLinearGradient =new LinearGradient(0,0- shadowClipInLength,0,getShadowWidth()+shadowClipOutLength,radiusColors,scaleLength,Shader.TileMode.CLAMP);
+            verticalRightLinearGradient    =new LinearGradient(0-shadowClipInLength,0,getShadowWidth()+shadowClipOutLength,0,radiusColors,scaleLength,Shader.TileMode.CLAMP);
 
             if (horizontalPath == null) {
                 horizontalPath=new Path();

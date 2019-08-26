@@ -37,18 +37,19 @@
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        app:shadowWidth="20dp"
-        app:shadowStartColor="#1af2e7eb"
-        app:shadowEndColor="#b7c2215b"
-        app:bgColor="@color/colorAccent1"
+        app:shadowWidth="40dp"
+        app:shadowEndColor="#5df2e7eb"
+        app:shadowStartColor="#b7c2215b"
         app:bgRadius="4dp"
-
+        app:bgColor="@color/colorPrimaryDark"
+        app:shadowOutClipLength="0dp"
+        app:shadowInClipLength="10dp"
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:text="android:"
-
+            android:visibility="gone"
             />
     </com.github.mycardview.view.CustomCardView>
 
