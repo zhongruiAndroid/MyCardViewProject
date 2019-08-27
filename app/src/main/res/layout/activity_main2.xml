@@ -32,7 +32,6 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/white"
             app:bgRadius="5dp"
             app:shadowClipInLength="0dp"
             app:shadowEndColor="@color/endcolor"

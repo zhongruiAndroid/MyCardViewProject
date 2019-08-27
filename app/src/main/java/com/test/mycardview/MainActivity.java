@@ -7,8 +7,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
@@ -22,13 +24,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MyCardView tv;
+    private MyCardView mcv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mcv=findViewById(R.id.mcv);
         Button btList=findViewById(R.id.btList);
         btList.setOnClickListener(this);
 
@@ -49,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             llContent.addView(button);
         }
 
+
+
+        mcv.setBackground(ContextCompat.getDrawable(this,R.color.app_hint_color));
+
+        TextView textView=null;
+        textView.getBackground();
 
     }
 

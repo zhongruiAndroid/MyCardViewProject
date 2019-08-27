@@ -53,6 +53,7 @@ public class Main2Activity extends AppCompatActivity {
         Log.e("=====","====a4="+Color.alpha(a4));
         Log.e("=====","====a5="+Color.alpha(a5));
 
+
     }
     private int[] getRGB(int color){
         int red = (color & 0xff0000) >> 16;
