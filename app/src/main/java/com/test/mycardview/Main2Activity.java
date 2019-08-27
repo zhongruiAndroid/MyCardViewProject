@@ -72,7 +72,6 @@ public class Main2Activity extends AppCompatActivity {
                 int argb = Color.argb(progress, getRGB(startColor)[0], getRGB(startColor)[1], getRGB(startColor)[2]);
                 ccv.setShadowStartColor(argb);
 //                ccv.setShadowCenterColor(argb);
-                ccv.complete();
                 tvStartColor.setText("开始颜色"+progress);
             }
             @Override
@@ -92,7 +91,6 @@ public class Main2Activity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int argb = Color.argb(progress, getRGB(endColor)[0], getRGB(endColor)[1], getRGB(endColor)[2]);
                 ccv.setShadowEndColor(argb);
-                ccv.complete();
                 tvEndColor.setText("结束颜色"+progress);
             }
             @Override

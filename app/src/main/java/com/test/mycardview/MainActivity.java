@@ -54,10 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        mcv.setBackground(ContextCompat.getDrawable(this,R.color.app_hint_color));
 
-        TextView textView=null;
-        textView.getBackground();
 
     }
 
