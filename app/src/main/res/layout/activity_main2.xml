@@ -34,7 +34,6 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/white"
             app:bgRadius="5dp"
-            app:shadowCenterBegin="0"
             app:shadowClipInLength="0dp"
             app:shadowEndColor="@color/endcolor"
             app:shadowStartColor="@color/startcolor"
@@ -48,14 +47,13 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/white"
             app:bgRadius="3dp"
-            app:shadowCenterBegin="0.2"
-            app:shadowCenterColor="@color/startcolor"
             app:shadowClipInLength="0dp"
             app:shadowEndColor="@color/endcolor"
-            app:shadowStartColor="#0fCCCCCC"
+            app:shadowStartColor="@color/colorPrimary1"
             app:shadowWidth="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            app:onlyLinear="true"
             >
         </com.github.mycardview.view.CustomCardView>
 
