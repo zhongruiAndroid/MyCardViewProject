@@ -37,6 +37,7 @@
             app:shadowEndColor="@color/endcolor"
             app:shadowStartColor="@color/startcolor"
             app:shadowWidth="10dp"
+            app:onlyLinear="true"
             >
         </com.github.mycardview.view.CustomCardView>
 

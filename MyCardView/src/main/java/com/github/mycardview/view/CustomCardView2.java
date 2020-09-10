@@ -26,7 +26,7 @@ import com.github.mycardview.R;
 /***
  *   created by zhongrui on 2019/7/31
  */
-public class CustomCardView extends FrameLayout {
+public class CustomCardView2 extends FrameLayout {
     private float bgRadiusLeftTop;
     private float bgRadiusRightTop;
     private float bgRadiusRightBottom;
@@ -51,15 +51,15 @@ public class CustomCardView extends FrameLayout {
 
     private CustomDrawable shadowDrawable;
 
-    public CustomCardView(Context context) {
+    public CustomCardView2(Context context) {
         this(context, null);
     }
 
-    public CustomCardView(Context context, AttributeSet attrs) {
+    public CustomCardView2(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.CustomCardViewStyle);
     }
 
-    public CustomCardView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomCardView2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs, defStyleAttr);
     }
@@ -226,26 +226,30 @@ public class CustomCardView extends FrameLayout {
             //左上
             canvas.drawPath(cornerShadowPath, cornerShadowPaint);
 
-            //右上
-            /*将左上角旋转90，Y轴反向平移之后绘制*/
-            canvas.rotate(90, getShadowWidth(), getShadowWidth());
-            canvas.translate(0, -contentWidth);
-            canvas.drawPath(cornerShadowPath, cornerShadowPaint);
 
             //右下
             /*继续旋转90，Y轴反向平移之后绘制*/
-            canvas.rotate(90, getShadowWidth(), getShadowWidth());
-            canvas.translate(0, -contentHeight);
-            canvas.drawPath(cornerShadowPath, cornerShadowPaint);
-
-            //左下
-            /*继续旋转90，Y轴反向平移之后绘制*/
-            canvas.rotate(90, getShadowWidth(), getShadowWidth());
-            canvas.translate(0, -contentWidth);
+            canvas.rotate(180, getWidth()/2f, getHeight()/2f);
             canvas.drawPath(cornerShadowPath, cornerShadowPaint);
 
             canvas.restore();
 
+
+            canvas.save();
+            //右上
+            /*将左上角旋转90，Y轴反向平移之后绘制*/
+            canvas.rotate(90, getWidth()/2f, getWidth()/2f);
+            canvas.drawPath(cornerShadowPath, cornerShadowPaint);
+
+            canvas.restore();
+
+
+            canvas.save();
+            //左下
+            /*继续旋转90，Y轴反向平移之后绘制*/
+            canvas.rotate(-90, getHeight()/2f, getHeight()/2f);
+            canvas.drawPath(cornerShadowPath, cornerShadowPaint);
+            canvas.restore();
 
             //开始绘制4条边
             canvas.save();
@@ -265,7 +269,6 @@ public class CustomCardView extends FrameLayout {
             shadowPaint.setShader(verticalRightLinearGradient);
             canvas.drawPath(verticalPath, shadowPaint);
             canvas.restore();
-
 
         }
 
@@ -315,8 +318,8 @@ public class CustomCardView extends FrameLayout {
             //新的圆角矩阵需要包含默认的背景矩阵，防止直角漏出来
             bgPath.addRoundRect(bgRect, floats, Path.Direction.CW);
 
-            contentWidth = (int) (bounds.width() - shadowWidth * 2);
-            contentHeight = (int) (bounds.height() - shadowWidth * 2);
+            contentWidth =  (bounds.width() - shadowWidth * 2f);
+            contentHeight =  (bounds.height() - shadowWidth * 2f);
 
         }
 
@@ -341,6 +344,8 @@ public class CustomCardView extends FrameLayout {
             cornerShadowPath.moveTo(reallyShadowRadius, reallyShadowRadius);
             cornerShadowPath.arcTo(new RectF(0, 0, reallyShadowRadius * 2, reallyShadowRadius * 2), 180, 90);
             cornerShadowPath.close();
+
+
 
 
             int[] radiusColors;
