@@ -9,10 +9,6 @@
         <!--<item name="CustomCardViewStyle">@style/ba</item>-->
     </style>
 
-    <style name="ba" parent="Base.CustomCardView">
-        <item name="bgColor">#ffffff</item>
-        <item name="shadowEndColor">@color/colorPrimary</item>
-        <item name="shadowWidth">2dp</item>
-    </style>
+
 
 </resources>
