@@ -8,6 +8,7 @@
     <color name="colorPrimaryDark">#18B4ED</color>
     <color name="colorPrimaryDark11">#87ceeb</color>
     <color name="colorAccent">#18B4ED</color>
+    <color name="aa">#0D000000</color>
 
     <color name="bg_color">#ffffff</color>
     <color name="app_hint_color">#cccccc</color>

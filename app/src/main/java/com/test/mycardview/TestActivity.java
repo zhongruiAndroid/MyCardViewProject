@@ -1,10 +1,12 @@
 package com.test.mycardview;
 
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.SeekBar;
@@ -113,11 +115,11 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initData() {
-        startColor = ActivityCompat.getColor(this, R.color.startcolor);
+        startColor = ActivityCompat.getColor(this, R.color.black);
         endColor = ActivityCompat.getColor(this, R.color.endcolor);
         bgColor = Color.WHITE;
 
-        startColorAlpha = 255;
+        startColorAlpha = 13;
         endColorAlpha = 255;
 
         sbStartColor.setProgress(startColorAlpha);
@@ -127,9 +129,9 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         tvEndColor.setBackgroundColor(endColor);
         tvBgColor.setBackgroundColor(bgColor);
 
-        ccv.setShadowWidth(dp2px(10));
+        ccv.setShadowWidth(dp2px(13));
 
-        sbShadowWidth.setProgress(10);
+        sbShadowWidth.setProgress(13);
 
         ccv.setBgRadius(dp2px(5));
 
@@ -142,7 +144,12 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         sbShadowAlpha.setProgress(100);
     }
 
-
+    public PointF test(float fraction, PointF start,PointF control1,PointF control2,PointF endPoint){
+        PointF pointF = new PointF();
+        pointF.x = (float) (Math.pow((1 - fraction),3)*start.x +3 * control1.x*fraction*Math.pow((1-fraction),2)+3*control2.x*Math.pow(fraction,2)*(1-fraction)+endPoint.x*Math.pow(fraction,3));
+        pointF.y = (float) (Math.pow((1 - fraction),3)*start.y +3 * control1.y*fraction*Math.pow((1-fraction),2)+3*control2.y*Math.pow(fraction,2)*(1-fraction)+endPoint.y*Math.pow(fraction,3));
+        return pointF;
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -163,14 +170,17 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.tvStartColor:
                         startColor = color;
                         ccv.setShadowStartColor(getColorByAlpha(startColor, startColorAlpha));
+                        tvStartColor.setBackgroundColor(getColorByAlpha(startColor, startColorAlpha));
                         break;
                     case R.id.tvEndColor:
                         endColor = color;
                         ccv.setShadowEndColor(getColorByAlpha(endColor, endColorAlpha));
+                        tvEndColor.setBackgroundColor(getColorByAlpha(endColor, endColorAlpha));
                         break;
                     case R.id.tvBgColor:
                         bgColor = color;
                         ccv.setBgColor(bgColor);
+                        tvBgColor.setBackgroundColor(bgColor);
                         break;
                 }
             }
@@ -199,6 +209,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        Log.i("=====","=====progress:="+progress);
         switch (seekBar.getId()) {
             case R.id.sbStartColor:
                 startColorAlpha = progress;
