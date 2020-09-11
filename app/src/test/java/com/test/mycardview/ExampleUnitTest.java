@@ -14,4 +14,11 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+    @Test
+    public void asf() {
+        String a="1f";
+        System.out.println( Float.parseFloat("1.1F"));
+        float l = Float.parseFloat(a);
+        System.out.println(l);
+    }
 }

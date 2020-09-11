@@ -349,7 +349,6 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
-            app:onlyLinear="true"
             android:layout_margin="30dp"
             >
             <TextView

@@ -86,6 +86,8 @@
         <attr name="shadowClipOutLength" format="dimension"/>
         <attr name="shadowClipInLength" format="dimension"/>
         <attr name="onlyLinear" format="boolean"/>
+        <attr name="controlPointFirstY" format="string"/>
+        <attr name="controlPointSecondY" format="string"/>
 
     </declare-styleable>
     <attr name="CustomCardViewStyle" format="reference"/>
@@ -98,15 +100,19 @@
         <item name="shadowOffsetTop">@dimen/customCardView_default_shadowOffsetY</item>
         <item name="shadowStartColor">@color/customCardView_default_shadowStartColor</item>
         <item name="shadowEndColor">@color/customCardView_default_shadowEndColor</item>
+        <item name="controlPointFirstY">@fraction/customCardView_default_controlPointFirstY</item>
+        <item name="controlPointSecondY">@fraction/customCardView_default_controlPointSecondY</item>
     </style>
     <style name="CustomCardView" parent="Base.CustomCardView">
 
     </style>
 
     <color name="customCardView_default_bgColor">#ffffff</color>
-    <dimen name="customCardView_default_shadowWidth">14dp</dimen>
+    <dimen name="customCardView_default_shadowWidth">12dp</dimen>
     <dimen name="customCardView_default_shadowOffsetX">0px</dimen>
     <dimen name="customCardView_default_shadowOffsetY">0px</dimen>
-    <color name="customCardView_default_shadowStartColor">#0D000000</color>
+    <color name="customCardView_default_shadowStartColor">#0A000000</color>
     <color name="customCardView_default_shadowEndColor">#00000000</color>
+    <fraction name="customCardView_default_controlPointFirstY">0.8</fraction>
+    <fraction name="customCardView_default_controlPointSecondY">1</fraction>
 </resources>
