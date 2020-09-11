@@ -1,93 +1,347 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".TestActivity">
+    android:background="@color/white">
 
-    <com.github.mycardview.view.CustomCardView
-        android:id="@+id/ccv"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        app:bgRadius="5dp"
-        app:shadowClipInLength="0dp"
-        app:shadowEndColor="@color/endcolor"
-        app:shadowStartColor="@color/startcolor"
-        app:shadowWidth="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Android"
-            android:layout_gravity="center"
-            />
-    </com.github.mycardview.view.CustomCardView>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="30dp"
-        >
-        <TextView
-            android:id="@+id/tvStartColor"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="内部颜色"
-            android:gravity="center"
-            />
-        <TextView
-            android:id="@+id/tvEndColor"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="外部颜色"
-            android:gravity="center"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".TestActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="6"
-            android:text="内部颜色透明度"
-            />
-
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/sbStartColor"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="255"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
+            android:gravity="center"
+            android:paddingBottom="30dp"
+            android:paddingTop="30dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="6"
-            android:text="外部颜色透明度"
-            />
+            <com.github.mycardview.view.CustomCardView
+                android:id="@+id/ccv"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                app:bgColor="@color/white"
+                app:bgRadius="5dp"
+                app:shadowClipInLength="0dp"
+                app:shadowEndColor="@color/endcolor"
+                app:shadowStartColor="@color/startcolor"
+                app:shadowWidth="10dp">
 
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/sbEndColor"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Android" />
+            </com.github.mycardview.view.CustomCardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvStartColor"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/app_hint_color"
+                    android:gravity="center"
+                    android:text="点击选择内部颜色" />
+
+                <TextView
+                    android:id="@+id/tvEndColor"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/centercolor"
+                    android:gravity="center"
+                    android:text="点击选择外部颜色" />
+
+                <TextView
+                    android:id="@+id/tvBgColor"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="点击选择背景颜色" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="255"/>
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="内部颜色透明度" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbStartColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="255" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="外部颜色透明度" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbEndColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="255" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="背景圆角" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbBgRadius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="背景左上圆角" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbBgRadiusLeftTop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="背景右上圆角" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbBgRadiusRightTop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="背景左下圆角" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbBgRadiusLeftBottom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="背景右下圆角" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbBgRadiusRightBottom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="阴影透明度" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowAlpha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="100" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="阴影宽度" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowWidth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="40" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="阴影左边偏移量" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowOffsetLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="阴影顶部偏移量" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowOffsetTop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="阴影右边偏移量" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowOffsetRight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="阴影底部偏移量" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowOffsetBottom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="阴影向内偏移量" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowClipInLength"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="阴影向外偏移量" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowClipOutLength"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

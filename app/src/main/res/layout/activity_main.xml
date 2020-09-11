@@ -18,7 +18,6 @@
         app:cardCornerRadius="20dp"
         app:cardElevation="13dp"
         >
-
         <TextView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -58,8 +57,12 @@
         android:layout_height="wrap_content"
         android:text="列表"
         />
-
-
+    <Button
+        android:id="@+id/btLookTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查看测试效果"
+        />
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

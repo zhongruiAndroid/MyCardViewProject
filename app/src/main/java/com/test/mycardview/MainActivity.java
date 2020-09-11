@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mcv=findViewById(R.id.mcv);
         Button btList=findViewById(R.id.btList);
         btList.setOnClickListener(this);
+        Button btLookTest=findViewById(R.id.btLookTest);
+        btLookTest.setOnClickListener(this);
 
         LinearLayout llContent=findViewById(R.id.llContent);
 
@@ -66,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
 //                goList();
 //                jumpPermission(tag[0]);
+            break;
+            case R.id.btLookTest:
+                startActivity(new Intent(this,TestActivity.class));
             break;
         }
     }

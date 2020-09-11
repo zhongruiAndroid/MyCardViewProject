@@ -17,6 +17,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.FloatRange;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -137,6 +138,40 @@ public class CustomCardView extends FrameLayout {
         end = (int) (end + getShadowWidth() - getShadowOffsetRight());
         bottom = (int) (bottom + getShadowWidth() - getShadowOffsetBottom());
         super.setPaddingRelative(start, top, end, bottom);
+    }
+
+    @Override
+    public int getPaddingBottom() {
+        return (int) (super.getPaddingBottom()- getShadowWidth() + getShadowOffsetBottom());
+    }
+    @Override
+    public int getPaddingTop() {
+        return (int) (super.getPaddingTop()- getShadowWidth() + getShadowOffsetTop());
+    }
+    @Override
+    public int getPaddingLeft() {
+        return (int)(super.getPaddingLeft()- getShadowWidth() + getShadowOffsetLeft());
+    }
+    @Override
+    public int getPaddingRight() {
+        return (int) (super.getPaddingRight()- getShadowWidth() + getShadowOffsetRight());
+    }
+
+    @Override
+    public int getPaddingStart() {
+        if(getLayoutDirection() == LAYOUT_DIRECTION_RTL){
+            return getPaddingRight();
+        }else{
+            return getPaddingLeft();
+        }
+    }
+    @Override
+    public int getPaddingEnd() {
+        if(getLayoutDirection() == LAYOUT_DIRECTION_RTL){
+            return getPaddingLeft();
+        }else{
+            return getPaddingRight();
+        }
     }
 
     public class CustomDrawable extends Drawable {
@@ -337,7 +372,7 @@ public class CustomCardView extends FrameLayout {
             //重合部分处理方式
 //            cornerShadowPath.setFillType(Path.FillType.EVEN_ODD);
 
-            float reallyShadowRadius = getShadowWidth() + shadowClipInLength;
+            float reallyShadowRadius = getShadowWidth() + getShadowClipInLength();
             cornerShadowPath.moveTo(reallyShadowRadius, reallyShadowRadius);
             cornerShadowPath.arcTo(new RectF(0, 0, reallyShadowRadius * 2, reallyShadowRadius * 2), 180, 90);
             cornerShadowPath.close();
@@ -418,6 +453,8 @@ public class CustomCardView extends FrameLayout {
             this.backgroundColor = colorStateList;
 
             shadowDrawable.setBackground(backgroundColor);
+            this.invalidateDrawable(shadowDrawable);
+
             setBackground(shadowDrawable);
         }
     }
@@ -497,7 +534,7 @@ public class CustomCardView extends FrameLayout {
         return shadowAlpha;
     }
 
-    public void setShadowAlpha(float shadowAlpha) {
+    public void setShadowAlpha(@FloatRange(from = 0,to = 1f) float shadowAlpha) {
         if(shadowAlpha<0){
             shadowAlpha=0;
         }
@@ -506,22 +543,27 @@ public class CustomCardView extends FrameLayout {
         }
         if(this.shadowAlpha != shadowAlpha){
             this.shadowAlpha = shadowAlpha;
-            computeShadow(true);
+            shadowDrawable.setAlpha((int) (shadowAlpha * 255));
+            this.invalidateDrawable(shadowDrawable);
+//            computeShadow(true);
         }
     }
 
     public float getShadowWidth() {
+        if(shadowWidth<=0){
+            shadowWidth=1;
+        }
         return shadowWidth;
     }
 
     public void setShadowWidth(float shadowWidth) {
         shadowWidth=(int)(shadowWidth+0.5f);
         if(shadowWidth<0){
-            shadowWidth=0;
+            shadowWidth=1;
         }
         if(this.shadowWidth != shadowWidth){
             this.shadowWidth = shadowWidth;
-            computeShadow(true);
+            computeShadowAndBg(true);
         }
     }
 
@@ -535,7 +577,8 @@ public class CustomCardView extends FrameLayout {
         }
         if(this.shadowOffsetLeft != shadowOffsetLeft){
             this.shadowOffsetLeft = shadowOffsetLeft;
-            computeShadow(true);
+            setPadding(getPaddingLeft(),getPaddingTop(),getPaddingRight(),getPaddingBottom());
+            computeShadowAndBg(true);
         }
     }
 
@@ -549,7 +592,8 @@ public class CustomCardView extends FrameLayout {
         }
         if(this.shadowOffsetTop != shadowOffsetTop){
             this.shadowOffsetTop = shadowOffsetTop;
-            computeShadow(true);
+            setPadding(getPaddingLeft(),getPaddingTop(),getPaddingRight(),getPaddingBottom());
+            computeShadowAndBg(true);
         }
     }
 
@@ -563,7 +607,8 @@ public class CustomCardView extends FrameLayout {
         }
         if(this.shadowOffsetRight != shadowOffsetRight){
             this.shadowOffsetRight = shadowOffsetRight;
-            computeShadow(true);
+            setPadding(getPaddingLeft(),getPaddingTop(),getPaddingRight(),getPaddingBottom());
+            computeShadowAndBg(true);
         }
     }
 
@@ -577,7 +622,8 @@ public class CustomCardView extends FrameLayout {
         }
         if(this.shadowOffsetBottom != shadowOffsetBottom){
             this.shadowOffsetBottom = shadowOffsetBottom;
-            computeShadow(true);
+            setPadding(getPaddingLeft(),getPaddingTop(),getPaddingRight(),getPaddingBottom());
+            computeShadowAndBg(true);
         }
     }
 
@@ -633,10 +679,16 @@ public class CustomCardView extends FrameLayout {
     }
 
     public float getShadowClipInLength() {
+        if(shadowClipInLength<0){
+            shadowClipInLength=0;
+        }
         return shadowClipInLength;
     }
 
     public void setShadowClipInLength(float shadowClipInLength) {
+        if(shadowClipInLength<0){
+            shadowClipInLength=0;
+        }
         if(this.shadowClipInLength != shadowClipInLength){
             this.shadowClipInLength = shadowClipInLength;
             computeShadow(true);
@@ -653,6 +705,11 @@ public class CustomCardView extends FrameLayout {
     }
     private void computeShadow(boolean needComputeShadow) {
         shadowDrawable.setNeedComputeShadow(needComputeShadow);
+        this.invalidateDrawable(shadowDrawable);
+    }
+    private void computeShadowAndBg(boolean needCompute) {
+        shadowDrawable.setNeedComputeRect(needCompute);
+        shadowDrawable.setNeedComputeShadow(needCompute);
         this.invalidateDrawable(shadowDrawable);
     }
 }
