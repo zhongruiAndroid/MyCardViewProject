@@ -21,12 +21,12 @@
             android:gravity="center_vertical"
             android:padding="30dp"
             >
-            <com.github.mycardview.view.CustomCardView
+            <com.github.mycardview.CustomCardView
                 android:id="@+id/ccv"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 >
-            </com.github.mycardview.view.CustomCardView>
+            </com.github.mycardview.CustomCardView>
 
         </LinearLayout>
 

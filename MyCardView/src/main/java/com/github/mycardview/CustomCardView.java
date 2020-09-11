@@ -1,4 +1,4 @@
-package com.github.mycardview.view;
+package com.github.mycardview;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;
@@ -11,14 +11,18 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
+import android.graphics.PointF;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.FloatRange;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.github.mycardview.R;
@@ -26,7 +30,7 @@ import com.github.mycardview.R;
 /***
  *   created by zhongrui on 2019/7/31
  */
-public class CustomCardView2 extends FrameLayout {
+public class CustomCardView extends FrameLayout {
     private float bgRadiusLeftTop;
     private float bgRadiusRightTop;
     private float bgRadiusRightBottom;
@@ -41,25 +45,27 @@ public class CustomCardView2 extends FrameLayout {
     private float shadowOffsetBottom;
     private int shadowStartColor;
 
-//    private int shadowCenterColor;
-//    private float shadowCenterBegin;
 
     private int shadowEndColor;
     private float shadowClipOutLength;
     private float shadowClipInLength;
     private boolean onlyLinear = false;
 
+    private float controlPointFirstY = 0.8f;
+
+    private float controlPointSecondY = 1f;
+
     private CustomDrawable shadowDrawable;
 
-    public CustomCardView2(Context context) {
+    public CustomCardView(Context context) {
         this(context, null);
     }
 
-    public CustomCardView2(Context context, AttributeSet attrs) {
+    public CustomCardView(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.CustomCardViewStyle);
     }
 
-    public CustomCardView2(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomCardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs, defStyleAttr);
     }
@@ -78,15 +84,15 @@ public class CustomCardView2 extends FrameLayout {
         }
 
 
-        float bgRadius = typedArray.getDimension(R.styleable.CustomCardView_bgRadius, 0);
+        float bgRadius = typedArray.getDimension(R.styleable.CustomCardView_bgRadius, dp2px(5));
         bgRadiusLeftTop = typedArray.getDimension(R.styleable.CustomCardView_bgRadiusLeftTop, bgRadius);
         bgRadiusRightTop = typedArray.getDimension(R.styleable.CustomCardView_bgRadiusRightTop, bgRadius);
         bgRadiusRightBottom = typedArray.getDimension(R.styleable.CustomCardView_bgRadiusRightBottom, bgRadius);
         bgRadiusLeftBottom = typedArray.getDimension(R.styleable.CustomCardView_bgRadiusLeftBottom, bgRadius);
 
         shadowAlpha = typedArray.getFloat(R.styleable.CustomCardView_shadowAlpha, 1);
-        shadowWidth = typedArray.getDimension(R.styleable.CustomCardView_shadowWidth, dp2px(10));
-        shadowWidth=(int)(shadowWidth+0.5f);
+        shadowWidth = typedArray.getDimension(R.styleable.CustomCardView_shadowWidth, R.dimen.customCardView_default_shadowWidth);
+        shadowWidth = (int) (shadowWidth + 0.5f);
         shadowOffsetLeft = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetLeft, 0);
         shadowOffsetTop = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetTop, 0);
         shadowOffsetRight = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetRight, 0);
@@ -95,13 +101,13 @@ public class CustomCardView2 extends FrameLayout {
         shadowStartColor = typedArray.getColor(R.styleable.CustomCardView_shadowStartColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowStartColor));
         shadowEndColor = typedArray.getColor(R.styleable.CustomCardView_shadowEndColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowEndColor));
 
-//        shadowCenterColor = typedArray.getColor(R.styleable.CustomCardView_shadowCenterColor,shadowStartColor);
-//        shadowCenterBegin = typedArray.getFloat(R.styleable.CustomCardView_shadowCenterBegin,0.3f);
-
 
         onlyLinear = typedArray.getBoolean(R.styleable.CustomCardView_onlyLinear, false);
         shadowClipOutLength = typedArray.getDimension(R.styleable.CustomCardView_shadowClipOutLength, 0);
         shadowClipInLength = typedArray.getDimension(R.styleable.CustomCardView_shadowClipInLength, 0);
+        controlPointFirstY= typedArray.getFloat(R.styleable.CustomCardView_controlPointFirstY,R.fraction.customCardView_default_controlPointFirstY);
+        controlPointSecondY = typedArray.getFloat(R.styleable.CustomCardView_controlPointSecondY,R.fraction.customCardView_default_controlPointSecondY);
+
 
         typedArray.recycle();
 
@@ -137,6 +143,44 @@ public class CustomCardView2 extends FrameLayout {
         end = (int) (end + getShadowWidth() - getShadowOffsetRight());
         bottom = (int) (bottom + getShadowWidth() - getShadowOffsetBottom());
         super.setPaddingRelative(start, top, end, bottom);
+    }
+
+    @Override
+    public int getPaddingBottom() {
+        return (int) (super.getPaddingBottom() - getShadowWidth() + getShadowOffsetBottom());
+    }
+
+    @Override
+    public int getPaddingTop() {
+        return (int) (super.getPaddingTop() - getShadowWidth() + getShadowOffsetTop());
+    }
+
+    @Override
+    public int getPaddingLeft() {
+        return (int) (super.getPaddingLeft() - getShadowWidth() + getShadowOffsetLeft());
+    }
+
+    @Override
+    public int getPaddingRight() {
+        return (int) (super.getPaddingRight() - getShadowWidth() + getShadowOffsetRight());
+    }
+
+    @Override
+    public int getPaddingStart() {
+        if (getLayoutDirection() == LAYOUT_DIRECTION_RTL) {
+            return getPaddingRight();
+        } else {
+            return getPaddingLeft();
+        }
+    }
+
+    @Override
+    public int getPaddingEnd() {
+        if (getLayoutDirection() == LAYOUT_DIRECTION_RTL) {
+            return getPaddingLeft();
+        } else {
+            return getPaddingRight();
+        }
     }
 
     public class CustomDrawable extends Drawable {
@@ -201,9 +245,9 @@ public class CustomCardView2 extends FrameLayout {
                 computeBgRect();
                 needComputeRect = false;
             }
-            if(needComputeShadow){
+            if (needComputeShadow) {
                 computeShadow();
-                needComputeShadow=false;
+                needComputeShadow = false;
             }
             /*绘制阴影*/
             drawShadow(canvas);
@@ -226,30 +270,26 @@ public class CustomCardView2 extends FrameLayout {
             //左上
             canvas.drawPath(cornerShadowPath, cornerShadowPaint);
 
+            //右上
+            /*将左上角旋转90，Y轴反向平移之后绘制*/
+            canvas.rotate(90, getShadowWidth(), getShadowWidth());
+            canvas.translate(0, -contentWidth);
+            canvas.drawPath(cornerShadowPath, cornerShadowPaint);
 
             //右下
             /*继续旋转90，Y轴反向平移之后绘制*/
-            canvas.rotate(180, getWidth()/2f, getHeight()/2f);
+            canvas.rotate(90, getShadowWidth(), getShadowWidth());
+            canvas.translate(0, -contentHeight);
             canvas.drawPath(cornerShadowPath, cornerShadowPaint);
 
-            canvas.restore();
-
-
-            canvas.save();
-            //右上
-            /*将左上角旋转90，Y轴反向平移之后绘制*/
-            canvas.rotate(90, getWidth()/2f, getWidth()/2f);
-            canvas.drawPath(cornerShadowPath, cornerShadowPaint);
-
-            canvas.restore();
-
-
-            canvas.save();
             //左下
             /*继续旋转90，Y轴反向平移之后绘制*/
-            canvas.rotate(-90, getHeight()/2f, getHeight()/2f);
+            canvas.rotate(90, getShadowWidth(), getShadowWidth());
+            canvas.translate(0, -contentWidth);
             canvas.drawPath(cornerShadowPath, cornerShadowPaint);
+
             canvas.restore();
+
 
             //开始绘制4条边
             canvas.save();
@@ -269,6 +309,7 @@ public class CustomCardView2 extends FrameLayout {
             shadowPaint.setShader(verticalRightLinearGradient);
             canvas.drawPath(verticalPath, shadowPaint);
             canvas.restore();
+
 
         }
 
@@ -318,8 +359,8 @@ public class CustomCardView2 extends FrameLayout {
             //新的圆角矩阵需要包含默认的背景矩阵，防止直角漏出来
             bgPath.addRoundRect(bgRect, floats, Path.Direction.CW);
 
-            contentWidth =  (bounds.width() - shadowWidth * 2f);
-            contentHeight =  (bounds.height() - shadowWidth * 2f);
+            contentWidth = (int) (bounds.width() - shadowWidth * 2);
+            contentHeight = (int) (bounds.height() - shadowWidth * 2);
 
         }
 
@@ -328,6 +369,10 @@ public class CustomCardView2 extends FrameLayout {
 
             cornerShadowPaint.setShader(cornerGradient);
             shadowPaint.setShader(horizontalLinearGradient);
+        }
+
+        private float getFractionByBezier(float fraction) {
+            return (float) (Math.pow((1 - fraction), 3) *0 + 3 * controlPointFirstY * fraction * Math.pow((1 - fraction), 2) + 3 * controlPointSecondY * Math.pow(fraction, 2) * (1 - fraction) + 1 * Math.pow(fraction, 3));
         }
 
         private void setCornerShadowPath() {
@@ -340,34 +385,31 @@ public class CustomCardView2 extends FrameLayout {
             //重合部分处理方式
 //            cornerShadowPath.setFillType(Path.FillType.EVEN_ODD);
 
-            float reallyShadowRadius = getShadowWidth() + shadowClipInLength;
+            float reallyShadowRadius = getShadowWidth() + getShadowClipInLength();
             cornerShadowPath.moveTo(reallyShadowRadius, reallyShadowRadius);
             cornerShadowPath.arcTo(new RectF(0, 0, reallyShadowRadius * 2, reallyShadowRadius * 2), 180, 90);
             cornerShadowPath.close();
 
 
-
-
             int[] radiusColors;
             float[] scaleLength;
-            if (onlyLinear) {
+            if (!onlyLinear) {
                 if (argbEvaluator == null) {
                     argbEvaluator = new ArgbEvaluator();
                 }
                 radiusColors = new int[]{
                         getShadowStartColor(),
-                        (int) argbEvaluator.evaluate(0.2f, getShadowStartColor(), getShadowEndColor()),
-                        (int) argbEvaluator.evaluate(0.4f, getShadowStartColor(), getShadowEndColor()),
-                        (int) argbEvaluator.evaluate(0.6f, getShadowStartColor(), getShadowEndColor()),
-                        (int) argbEvaluator.evaluate(0.8f, getShadowStartColor(), getShadowEndColor()),
+                        (int) argbEvaluator.evaluate(getFractionByBezier(0.2f) , getShadowStartColor(), getShadowEndColor()),
+                        (int) argbEvaluator.evaluate(getFractionByBezier(0.4f) , getShadowStartColor(), getShadowEndColor()),
+                        (int) argbEvaluator.evaluate(getFractionByBezier(0.6f) , getShadowStartColor(), getShadowEndColor()),
+                        (int) argbEvaluator.evaluate(getFractionByBezier(0.8f) , getShadowStartColor(), getShadowEndColor()),
                         getShadowEndColor(),
                 };
-                scaleLength = new float[]{0f, 0.1f, 0.3f, 0.5f, 0.7f, 1};
+                scaleLength = new float[]{0f, 0.2f, 0.4f, 0.6f, 0.8f, 1};
             } else {
                 radiusColors = new int[]{getShadowStartColor(), getShadowEndColor()};
                 scaleLength = new float[]{0f, 1};
             }
-
 
             //如果渲染器起始位置向里调整，horizontalPath,verticalPath则需要偏移，cornerLeftTopShadowPath圆心也需要偏移
             cornerGradient = new RadialGradient(reallyShadowRadius, reallyShadowRadius, reallyShadowRadius + shadowClipOutLength, radiusColors, scaleLength, Shader.TileMode.CLAMP);
@@ -416,13 +458,14 @@ public class CustomCardView2 extends FrameLayout {
     }
 
 
-
     public void setBgColor(@ColorInt int bgColor) {
         ColorStateList colorStateList = ColorStateList.valueOf(bgColor);
-        if(this.backgroundColor !=colorStateList ){
+        if (this.backgroundColor != colorStateList) {
             this.backgroundColor = colorStateList;
 
             shadowDrawable.setBackground(backgroundColor);
+            this.invalidateDrawable(shadowDrawable);
+
             setBackground(shadowDrawable);
         }
     }
@@ -439,10 +482,10 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setBgRadiusLeftTop(float bgRadiusLeftTop) {
-        if(bgRadiusLeftTop<0){
-            bgRadiusLeftTop=0;
+        if (bgRadiusLeftTop < 0) {
+            bgRadiusLeftTop = 0;
         }
-        if(this.bgRadiusLeftTop!=bgRadiusLeftTop){
+        if (this.bgRadiusLeftTop != bgRadiusLeftTop) {
             this.bgRadiusLeftTop = bgRadiusLeftTop;
             computeBgRect(true);
         }
@@ -453,10 +496,10 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setBgRadiusRightTop(float bgRadiusRightTop) {
-        if(bgRadiusRightTop<0){
-            bgRadiusRightTop=0;
+        if (bgRadiusRightTop < 0) {
+            bgRadiusRightTop = 0;
         }
-        if(this.bgRadiusRightTop != bgRadiusRightTop){
+        if (this.bgRadiusRightTop != bgRadiusRightTop) {
             this.bgRadiusRightTop = bgRadiusRightTop;
             computeBgRect(true);
         }
@@ -467,11 +510,11 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setBgRadiusRightBottom(float bgRadiusRightBottom) {
-        if(bgRadiusRightBottom<0){
-            bgRadiusRightBottom=0;
+        if (bgRadiusRightBottom < 0) {
+            bgRadiusRightBottom = 0;
         }
-        if(this.bgRadiusRightBottom!= bgRadiusRightBottom){
-            this.bgRadiusRightBottom= bgRadiusRightBottom;
+        if (this.bgRadiusRightBottom != bgRadiusRightBottom) {
+            this.bgRadiusRightBottom = bgRadiusRightBottom;
             computeBgRect(true);
         }
     }
@@ -481,10 +524,10 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setBgRadiusLeftBottom(float bgRadiusLeftBottom) {
-        if(bgRadiusLeftBottom<0){
-            bgRadiusLeftBottom=0;
+        if (bgRadiusLeftBottom < 0) {
+            bgRadiusLeftBottom = 0;
         }
-        if(this.bgRadiusLeftBottom != bgRadiusLeftBottom){
+        if (this.bgRadiusLeftBottom != bgRadiusLeftBottom) {
             this.bgRadiusLeftBottom = bgRadiusLeftBottom;
             computeBgRect(true);
         }
@@ -502,31 +545,36 @@ public class CustomCardView2 extends FrameLayout {
         return shadowAlpha;
     }
 
-    public void setShadowAlpha(float shadowAlpha) {
-        if(shadowAlpha<0){
-            shadowAlpha=0;
+    public void setShadowAlpha(@FloatRange(from = 0, to = 1f) float shadowAlpha) {
+        if (shadowAlpha < 0) {
+            shadowAlpha = 0;
         }
-        if(shadowAlpha>1){
-            shadowAlpha=1;
+        if (shadowAlpha > 1) {
+            shadowAlpha = 1;
         }
-        if(this.shadowAlpha != shadowAlpha){
+        if (this.shadowAlpha != shadowAlpha) {
             this.shadowAlpha = shadowAlpha;
-            computeShadow(true);
+            shadowDrawable.setAlpha((int) (shadowAlpha * 255));
+            this.invalidateDrawable(shadowDrawable);
+//            computeShadow(true);
         }
     }
 
     public float getShadowWidth() {
+        if (shadowWidth <= 0) {
+            shadowWidth = 1;
+        }
         return shadowWidth;
     }
 
     public void setShadowWidth(float shadowWidth) {
-        shadowWidth=(int)(shadowWidth+0.5f);
-        if(shadowWidth<0){
-            shadowWidth=0;
+        shadowWidth = (int) (shadowWidth + 0.5f);
+        if (shadowWidth < 0) {
+            shadowWidth = 1;
         }
-        if(this.shadowWidth != shadowWidth){
+        if (this.shadowWidth != shadowWidth) {
             this.shadowWidth = shadowWidth;
-            computeShadow(true);
+            computeShadowAndBg(true);
         }
     }
 
@@ -535,12 +583,13 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setShadowOffsetLeft(float shadowOffsetLeft) {
-        if(shadowOffsetLeft<0){
-            shadowOffsetLeft=0;
+        if (shadowOffsetLeft < 0) {
+            shadowOffsetLeft = 0;
         }
-        if(this.shadowOffsetLeft != shadowOffsetLeft){
+        if (this.shadowOffsetLeft != shadowOffsetLeft) {
             this.shadowOffsetLeft = shadowOffsetLeft;
-            computeShadow(true);
+            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
+            computeShadowAndBg(true);
         }
     }
 
@@ -549,12 +598,13 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setShadowOffsetTop(float shadowOffsetTop) {
-        if(shadowOffsetTop<0){
-            shadowOffsetTop=0;
+        if (shadowOffsetTop < 0) {
+            shadowOffsetTop = 0;
         }
-        if(this.shadowOffsetTop != shadowOffsetTop){
+        if (this.shadowOffsetTop != shadowOffsetTop) {
             this.shadowOffsetTop = shadowOffsetTop;
-            computeShadow(true);
+            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
+            computeShadowAndBg(true);
         }
     }
 
@@ -563,12 +613,13 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setShadowOffsetRight(float shadowOffsetRight) {
-        if(shadowOffsetRight<0){
-            shadowOffsetRight=0;
+        if (shadowOffsetRight < 0) {
+            shadowOffsetRight = 0;
         }
-        if(this.shadowOffsetRight != shadowOffsetRight){
+        if (this.shadowOffsetRight != shadowOffsetRight) {
             this.shadowOffsetRight = shadowOffsetRight;
-            computeShadow(true);
+            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
+            computeShadowAndBg(true);
         }
     }
 
@@ -577,12 +628,13 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setShadowOffsetBottom(float shadowOffsetBottom) {
-        if(shadowOffsetBottom<0){
-            shadowOffsetBottom=0;
+        if (shadowOffsetBottom < 0) {
+            shadowOffsetBottom = 0;
         }
-        if(this.shadowOffsetBottom != shadowOffsetBottom){
+        if (this.shadowOffsetBottom != shadowOffsetBottom) {
             this.shadowOffsetBottom = shadowOffsetBottom;
-            computeShadow(true);
+            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
+            computeShadowAndBg(true);
         }
     }
 
@@ -591,7 +643,7 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setShadowStartColor(int shadowStartColor) {
-        if(this.shadowStartColor != shadowStartColor){
+        if (this.shadowStartColor != shadowStartColor) {
             this.shadowStartColor = shadowStartColor;
             computeShadow(true);
         }
@@ -602,7 +654,7 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setShadowEndColor(int shadowEndColor) {
-        if(this.shadowEndColor != shadowEndColor){
+        if (this.shadowEndColor != shadowEndColor) {
             this.shadowEndColor = shadowEndColor;
             computeShadow(true);
         }
@@ -631,18 +683,24 @@ public class CustomCardView2 extends FrameLayout {
     }
 
     public void setShadowClipOutLength(float shadowClipOutLength) {
-        if(this.shadowClipOutLength != shadowClipOutLength){
+        if (this.shadowClipOutLength != shadowClipOutLength) {
             this.shadowClipOutLength = shadowClipOutLength;
             computeShadow(true);
         }
     }
 
     public float getShadowClipInLength() {
+        if (shadowClipInLength < 0) {
+            shadowClipInLength = 0;
+        }
         return shadowClipInLength;
     }
 
     public void setShadowClipInLength(float shadowClipInLength) {
-        if(this.shadowClipInLength != shadowClipInLength){
+        if (shadowClipInLength < 0) {
+            shadowClipInLength = 0;
+        }
+        if (this.shadowClipInLength != shadowClipInLength) {
             this.shadowClipInLength = shadowClipInLength;
             computeShadow(true);
         }
@@ -656,8 +714,15 @@ public class CustomCardView2 extends FrameLayout {
         shadowDrawable.setNeedComputeRect(needComputeRect);
         this.invalidateDrawable(shadowDrawable);
     }
+
     private void computeShadow(boolean needComputeShadow) {
         shadowDrawable.setNeedComputeShadow(needComputeShadow);
+        this.invalidateDrawable(shadowDrawable);
+    }
+
+    private void computeShadowAndBg(boolean needCompute) {
+        shadowDrawable.setNeedComputeRect(needCompute);
+        shadowDrawable.setNeedComputeShadow(needCompute);
         this.invalidateDrawable(shadowDrawable);
     }
 }

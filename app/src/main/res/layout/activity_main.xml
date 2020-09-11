@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="" />
 
-        <com.github.mycardview.view.CustomCardView
+        <com.github.mycardview.CustomCardView
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:text="android:"
                 android:visibility="gone" />
-        </com.github.mycardview.view.CustomCardView>
+        </com.github.mycardview.CustomCardView>
 
         <Button
             android:id="@+id/btList"

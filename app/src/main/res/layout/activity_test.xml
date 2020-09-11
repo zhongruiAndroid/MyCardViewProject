@@ -20,7 +20,7 @@
             android:paddingTop="30dp"
             android:orientation="horizontal">
 
-            <com.github.mycardview.view.CustomCardView
+            <com.github.mycardview.CustomCardView
                 android:id="@+id/ccv"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Android" />
-            </com.github.mycardview.view.CustomCardView>
+            </com.github.mycardview.CustomCardView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -345,7 +345,7 @@
                 android:layout_weight="1"
                 android:max="10" />
         </LinearLayout>
-        <com.github.mycardview.view.CustomCardView
+        <com.github.mycardview.CustomCardView
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
@@ -356,7 +356,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Android" />
-        </com.github.mycardview.view.CustomCardView>
+        </com.github.mycardview.CustomCardView>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

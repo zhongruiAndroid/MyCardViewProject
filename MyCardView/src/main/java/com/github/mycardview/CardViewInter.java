@@ -1,10 +1,11 @@
-package com.github.mycardview.view;
+package com.github.mycardview;
 
 /***
  *   created by android on 2019/7/31
  */
 public interface CardViewInter {
     public void setBgColor(int bgColor);
+
     public void setShadowRadius(float shadowRadius);
 
     public void setShadowRadiusLeft(float shadowRadiusLeft);

@@ -12,7 +12,7 @@ import android.view.Window;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.github.mycardview.view.CustomCardView;
+import com.github.mycardview.CustomCardView;
 import com.github.selectcolordialog.SelectColorDialog;
 import com.github.selectcolordialog.SelectColorListener;
 

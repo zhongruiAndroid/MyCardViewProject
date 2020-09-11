@@ -27,7 +27,7 @@
         android:orientation="horizontal"
         >
 
-        <com.github.mycardview.view.CustomCardView
+        <com.github.mycardview.CustomCardView
             android:id="@+id/ccv"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -39,9 +39,9 @@
             app:shadowWidth="10dp"
             app:onlyLinear="true"
             >
-        </com.github.mycardview.view.CustomCardView>
+        </com.github.mycardview.CustomCardView>
 
-        <com.github.mycardview.view.CustomCardView
+        <com.github.mycardview.CustomCardView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
@@ -55,7 +55,7 @@
             android:layout_marginRight="5dp"
             app:onlyLinear="true"
             >
-        </com.github.mycardview.view.CustomCardView>
+        </com.github.mycardview.CustomCardView>
 
         <TextView
             android:layout_width="100dp"
