@@ -660,23 +660,48 @@ public class CustomCardView extends FrameLayout {
         }
     }
 
-/*
-    public int getShadowCenterColor() {
-        return shadowCenterColor;
+    public boolean isOnlyLinear() {
+        return onlyLinear;
     }
 
-    public void setShadowCenterColor(int shadowCenterColor) {
-        this.shadowCenterColor = shadowCenterColor;
+    public void setOnlyLinear(boolean onlyLinear) {
+        if(this.onlyLinear!=onlyLinear){
+            this.onlyLinear = onlyLinear;
+            computeShadow(true);
+        }
     }
 
-    public float getShadowCenterBegin() {
-        return shadowCenterBegin;
+    public float getControlPointFirstY() {
+        return controlPointFirstY;
     }
 
-    public void setShadowCenterBegin(float shadowCenterBegin) {
-        this.shadowCenterBegin = shadowCenterBegin;
+    public void setControlPointFirstY(float controlPointFirstY) {
+        if(controlPointFirstY<0){
+            controlPointFirstY=0;
+        }else if(controlPointFirstY>1){
+            controlPointFirstY=1;
+        }
+        if(this.controlPointFirstY!=controlPointFirstY){
+            this.controlPointFirstY = controlPointFirstY;
+            computeShadow(true);
+        }
     }
-*/
+
+    public float getControlPointSecondY() {
+        return controlPointSecondY;
+    }
+
+    public void setControlPointSecondY(float controlPointSecondY) {
+        if(controlPointSecondY<0){
+            controlPointSecondY=0;
+        }else if(controlPointSecondY>1){
+            controlPointSecondY=1;
+        }
+        if(this.controlPointSecondY!=controlPointSecondY){
+            this.controlPointSecondY = controlPointSecondY;
+            computeShadow(true);
+        }
+    }
 
     public float getShadowClipOutLength() {
         return shadowClipOutLength;

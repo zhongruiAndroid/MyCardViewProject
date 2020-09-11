@@ -5,10 +5,12 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -38,6 +40,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private AppCompatSeekBar sbShadowClipInLength;
     private AppCompatSeekBar sbShadowClipOutLength;
     private SelectColorDialog selectColorDialog;
+    private AppCompatCheckBox cbChangeLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,14 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         ccv = findViewById(R.id.ccv);
+        cbChangeLinear = findViewById(R.id.cbChangeLinear);
+        ccv.setOnlyLinear(cbChangeLinear.isChecked());
+        cbChangeLinear.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ccv.setOnlyLinear(cbChangeLinear.isChecked());
+            }
+        });
 
         tvStartColor = findViewById(R.id.tvStartColor);
         tvStartColor.setOnClickListener(this);

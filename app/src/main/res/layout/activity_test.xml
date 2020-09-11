@@ -345,18 +345,13 @@
                 android:layout_weight="1"
                 android:max="10" />
         </LinearLayout>
-        <com.github.mycardview.CustomCardView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="30dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Android" />
-        </com.github.mycardview.CustomCardView>
+         <android.support.v7.widget.AppCompatCheckBox
+             android:id="@+id/cbChangeLinear"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="阴影使用线性渐变(没有默认的渐变效果好)"
+             android:textSize="11sp"
+             />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
