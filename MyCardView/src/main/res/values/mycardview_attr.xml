@@ -20,8 +20,8 @@
         <attr name="shadowClipOutLength" format="dimension"/>
         <attr name="shadowClipInLength" format="dimension"/>
         <attr name="onlyLinear" format="boolean"/>
-        <attr name="controlPointFirstY" format="string"/>
-        <attr name="controlPointSecondY" format="string"/>
+        <attr name="controlPointFirstY" format="float"/>
+        <attr name="controlPointSecondY" format="float"/>
 
     </declare-styleable>
     <attr name="ShadowFrameLayoutStyle" format="reference"/>
