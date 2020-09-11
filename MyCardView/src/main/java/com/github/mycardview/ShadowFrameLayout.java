@@ -57,7 +57,7 @@ public class ShadowFrameLayout extends FrameLayout {
     }
 
     public ShadowFrameLayout(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.CustomCardViewStyle);
+        this(context, attrs, R.attr.ShadowFrameLayoutStyle);
     }
 
     public ShadowFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -67,7 +67,7 @@ public class ShadowFrameLayout extends FrameLayout {
 
     private void init(AttributeSet attrs, int defStyleAttr) {
 
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ShadowFrameLayout, defStyleAttr, R.style.CustomCardView);
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ShadowFrameLayout, defStyleAttr, R.style.ShadowLayout);
 
         ColorStateList colorStateList;
         if (typedArray.hasValue(R.styleable.ShadowFrameLayout_bgColor)) {

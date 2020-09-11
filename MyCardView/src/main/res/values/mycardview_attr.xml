@@ -24,7 +24,7 @@
         <attr name="controlPointSecondY" format="string"/>
 
     </declare-styleable>
-    <attr name="CustomCardViewStyle" format="reference"/>
+    <attr name="ShadowFrameLayoutStyle" format="reference"/>
 
     <style name="Base.ShadowLayout" parent="android:Widget">
         <item name="bgColor">@color/customCardView_default_bgColor</item>
