@@ -11,7 +11,6 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
-import android.graphics.PointF;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -20,17 +19,13 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.FrameLayout;
-
-import com.github.mycardview.R;
 
 /***
  *   created by zhongrui on 2019/7/31
  */
-public class CustomCardView extends FrameLayout {
+public class ShadowFrameLayout extends FrameLayout {
     private float bgRadiusLeftTop;
     private float bgRadiusRightTop;
     private float bgRadiusRightBottom;
@@ -57,26 +52,26 @@ public class CustomCardView extends FrameLayout {
 
     private CustomDrawable shadowDrawable;
 
-    public CustomCardView(Context context) {
+    public ShadowFrameLayout(Context context) {
         this(context, null);
     }
 
-    public CustomCardView(Context context, AttributeSet attrs) {
+    public ShadowFrameLayout(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.CustomCardViewStyle);
     }
 
-    public CustomCardView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ShadowFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs, defStyleAttr);
     }
 
     private void init(AttributeSet attrs, int defStyleAttr) {
 
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CustomCardView, defStyleAttr, R.style.CustomCardView);
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ShadowFrameLayout, defStyleAttr, R.style.CustomCardView);
 
         ColorStateList colorStateList;
-        if (typedArray.hasValue(R.styleable.CustomCardView_bgColor)) {
-            colorStateList = typedArray.getColorStateList(R.styleable.CustomCardView_bgColor);
+        if (typedArray.hasValue(R.styleable.ShadowFrameLayout_bgColor)) {
+            colorStateList = typedArray.getColorStateList(R.styleable.ShadowFrameLayout_bgColor);
         } else {
             TypedArray array = getContext().obtainStyledAttributes(new int[]{android.R.attr.colorBackground});
             colorStateList = ColorStateList.valueOf(array.getColor(0, Color.WHITE));
@@ -84,29 +79,29 @@ public class CustomCardView extends FrameLayout {
         }
 
 
-        float bgRadius = typedArray.getDimension(R.styleable.CustomCardView_bgRadius, dp2px(5));
-        bgRadiusLeftTop = typedArray.getDimension(R.styleable.CustomCardView_bgRadiusLeftTop, bgRadius);
-        bgRadiusRightTop = typedArray.getDimension(R.styleable.CustomCardView_bgRadiusRightTop, bgRadius);
-        bgRadiusRightBottom = typedArray.getDimension(R.styleable.CustomCardView_bgRadiusRightBottom, bgRadius);
-        bgRadiusLeftBottom = typedArray.getDimension(R.styleable.CustomCardView_bgRadiusLeftBottom, bgRadius);
+        float bgRadius = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadius, dp2px(5));
+        bgRadiusLeftTop = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadiusLeftTop, bgRadius);
+        bgRadiusRightTop = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadiusRightTop, bgRadius);
+        bgRadiusRightBottom = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadiusRightBottom, bgRadius);
+        bgRadiusLeftBottom = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadiusLeftBottom, bgRadius);
 
-        shadowAlpha = typedArray.getFloat(R.styleable.CustomCardView_shadowAlpha, 1);
-        shadowWidth = typedArray.getDimension(R.styleable.CustomCardView_shadowWidth, R.dimen.customCardView_default_shadowWidth);
+        shadowAlpha = typedArray.getFloat(R.styleable.ShadowFrameLayout_shadowAlpha, 1);
+        shadowWidth = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowWidth, R.dimen.customCardView_default_shadowWidth);
         shadowWidth = (int) (shadowWidth + 0.5f);
-        shadowOffsetLeft = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetLeft, 0);
-        shadowOffsetTop = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetTop, 0);
-        shadowOffsetRight = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetRight, 0);
-        shadowOffsetBottom = typedArray.getDimension(R.styleable.CustomCardView_shadowOffsetBottom, 0);
+        shadowOffsetLeft = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowOffsetLeft, 0);
+        shadowOffsetTop = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowOffsetTop, 0);
+        shadowOffsetRight = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowOffsetRight, 0);
+        shadowOffsetBottom = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowOffsetBottom, 0);
 
-        shadowStartColor = typedArray.getColor(R.styleable.CustomCardView_shadowStartColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowStartColor));
-        shadowEndColor = typedArray.getColor(R.styleable.CustomCardView_shadowEndColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowEndColor));
+        shadowStartColor = typedArray.getColor(R.styleable.ShadowFrameLayout_shadowStartColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowStartColor));
+        shadowEndColor = typedArray.getColor(R.styleable.ShadowFrameLayout_shadowEndColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowEndColor));
 
 
-        onlyLinear = typedArray.getBoolean(R.styleable.CustomCardView_onlyLinear, false);
-        shadowClipOutLength = typedArray.getDimension(R.styleable.CustomCardView_shadowClipOutLength, 0);
-        shadowClipInLength = typedArray.getDimension(R.styleable.CustomCardView_shadowClipInLength, 0);
-        controlPointFirstY= typedArray.getFloat(R.styleable.CustomCardView_controlPointFirstY,R.fraction.customCardView_default_controlPointFirstY);
-        controlPointSecondY = typedArray.getFloat(R.styleable.CustomCardView_controlPointSecondY,R.fraction.customCardView_default_controlPointSecondY);
+        onlyLinear = typedArray.getBoolean(R.styleable.ShadowFrameLayout_onlyLinear, false);
+        shadowClipOutLength = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowClipOutLength, 0);
+        shadowClipInLength = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowClipInLength, 0);
+        controlPointFirstY= typedArray.getFloat(R.styleable.ShadowFrameLayout_controlPointFirstY,R.fraction.customCardView_default_controlPointFirstY);
+        controlPointSecondY = typedArray.getFloat(R.styleable.ShadowFrameLayout_controlPointSecondY,R.fraction.customCardView_default_controlPointSecondY);
 
 
         typedArray.recycle();

@@ -20,7 +20,7 @@
             android:paddingTop="30dp"
             android:orientation="horizontal">
 
-            <com.github.mycardview.CustomCardView
+            <com.github.mycardview.ShadowFrameLayout
                 android:id="@+id/ccv"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Android" />
-            </com.github.mycardview.CustomCardView>
+            </com.github.mycardview.ShadowFrameLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -14,13 +14,13 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.github.mycardview.CustomCardView;
+import com.github.mycardview.ShadowFrameLayout;
 import com.github.selectcolordialog.SelectColorDialog;
 import com.github.selectcolordialog.SelectColorListener;
 
 public class TestActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
-    private CustomCardView ccv;
+    private ShadowFrameLayout ccv;
     private TextView tvStartColor;
     private TextView tvEndColor;
     private TextView tvBgColor;

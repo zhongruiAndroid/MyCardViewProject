@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomCardView">
+    <declare-styleable name="ShadowFrameLayout">
         <attr name="bgColor" format="color"/>
         <attr name="bgRadius" format="dimension"/>
         <attr name="bgRadiusLeftTop" format="dimension"/>
@@ -26,7 +26,7 @@
     </declare-styleable>
     <attr name="CustomCardViewStyle" format="reference"/>
 
-    <style name="Base.CustomCardView" parent="android:Widget">
+    <style name="Base.ShadowLayout" parent="android:Widget">
         <item name="bgColor">@color/customCardView_default_bgColor</item>
         <item name="shadowAlpha">1</item>
         <item name="shadowWidth">@dimen/customCardView_default_shadowWidth</item>
@@ -37,7 +37,7 @@
         <item name="controlPointFirstY">@fraction/customCardView_default_controlPointFirstY</item>
         <item name="controlPointSecondY">@fraction/customCardView_default_controlPointSecondY</item>
     </style>
-    <style name="CustomCardView" parent="Base.CustomCardView">
+    <style name="ShadowLayout" parent="Base.ShadowLayout">
 
     </style>
 
