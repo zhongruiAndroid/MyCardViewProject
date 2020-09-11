@@ -44,3 +44,9 @@
              android:text="Android" />
 </com.github.mycardview.ShadowFrameLayout>
 ```
+
+| 最新版本号 | [ ![Download](https://api.bintray.com/packages/zhongrui/mylibrary/MyCardView/images/download.svg) ](https://bintray.com/zhongrui/mylibrary/MyCardView/_latestVersion) |
+|--------|----|
+```gradle
+implementation 'com.github:MyCardView:版本号看上面'
+```
