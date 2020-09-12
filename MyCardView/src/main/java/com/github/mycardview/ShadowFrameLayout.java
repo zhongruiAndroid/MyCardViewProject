@@ -424,13 +424,13 @@ public class ShadowFrameLayout extends FrameLayout {
                 horizontalPath.reset();
             }
             if (isInEditMode()) {
-                horizontalPath.moveTo(getShadowWidth() , 0);
-                horizontalPath.lineTo(contentWidth + getShadowWidth() , 0);
-                horizontalPath.lineTo(contentWidth + getShadowWidth() , getShadowWidth()+shadowClipInLength);
-                horizontalPath.lineTo(getShadowWidth() , getShadowWidth()+shadowClipInLength);
+                horizontalPath.moveTo(getShadowWidth()+shadowClipInLength, 0);
+                horizontalPath.lineTo(contentWidth + getShadowWidth()-shadowClipInLength , 0);
+                horizontalPath.lineTo(contentWidth + getShadowWidth()-shadowClipInLength , getShadowWidth()+shadowClipInLength);
+                horizontalPath.lineTo(getShadowWidth()+shadowClipInLength , getShadowWidth()+shadowClipInLength);
                 horizontalPath.close();
             } else {
-                horizontalPath.addRect(new RectF(getShadowWidth()+shadowClipInLength , 0, contentWidth + getShadowWidth()+shadowClipInLength , getShadowWidth()+shadowClipInLength), Path.Direction.CW);
+                horizontalPath.addRect(new RectF(getShadowWidth()+shadowClipInLength , 0, contentWidth + getShadowWidth()-shadowClipInLength , getShadowWidth()+shadowClipInLength), Path.Direction.CW);
             }
 
 
@@ -722,7 +722,7 @@ public class ShadowFrameLayout extends FrameLayout {
         }
         if (this.shadowClipInLength != shadowClipInLength) {
             this.shadowClipInLength = shadowClipInLength;
-            computeShadow(true);
+            computeShadowAndBg(true);
         }
     }
 
