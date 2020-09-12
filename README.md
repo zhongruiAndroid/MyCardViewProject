@@ -45,16 +45,9 @@
 </com.github.mycardview.ShadowFrameLayout>
 ```
 
-| 最新版本号 |[![](https://jitpack.io/v/zhongruiAndroid/MyCardViewProject.svg)](https://jitpack.io/#zhongruiAndroid/MyCardViewProject)|
+| 最新版本号 | [ ![Download](https://api.bintray.com/packages/zhongrui/mylibrary/MyCardView/images/download.svg) ](https://bintray.com/zhongrui/mylibrary/MyCardView/_latestVersion) |
 |--------|----|
-#### 项目根目录build.gradle添加
 ```gradle
-allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
-	}
+implementation 'com.github:MyCardView:版本号看上面'
 ```
-```gradle
-implementation 'com.github.zhongruiAndroid:MyCardViewProject:版本号看上面'
-```
+
