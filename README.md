@@ -8,11 +8,11 @@
 | 属性                | 类型      | 说明                                         |
 |---------------------|-----------|----------------------------------------------|
 | bgColor             | color     | 内容区域背景,默认:白色                       |
-| bgRadius            | dimension | 内容区域圆角,默认:0                          |
-| bgRadiusLeftTop     | dimension | 内容区域_左上圆角,默认:0                     |
-| bgRadiusRightTop    | dimension | 内容区域_右上圆角,默认:0                     |
-| bgRadiusRightBottom | dimension | 内容区域_右下圆角,默认:0                     |
-| bgRadiusLeftBottom  | dimension | 内容区域_左下圆角,默认:0                     |
+| bgRadius            | dimension | 内容区域圆角,默认:0【bgColor不为透明色设置radius才生效】                          |
+| bgRadiusLeftTop     | dimension | 内容区域_左上圆角,默认:0【bgColor不为透明色设置radius才生效】|
+| bgRadiusRightTop    | dimension | 内容区域_右上圆角,默认:0【bgColor不为透明色设置radius才生效】|
+| bgRadiusRightBottom | dimension | 内容区域_右下圆角,默认:0 【bgColor不为透明色设置radius才生效】|
+| bgRadiusLeftBottom  | dimension | 内容区域_左下圆角,默认:0 【bgColor不为透明色设置radius才生效】|
 | shadowAlpha         | float     | 阴影整体透明度0~1,默认值:1                   |
 | shadowWidth         | dimension | 阴影宽度，默认:12dp                          |
 | shadowOffsetLeft    | dimension | 内容区域向左偏移量,默认:0                    |
