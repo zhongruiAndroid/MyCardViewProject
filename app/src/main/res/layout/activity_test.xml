@@ -22,21 +22,22 @@
 
             <com.github.mycardview.ShadowFrameLayout
                 android:id="@+id/ccv"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
-                app:bgColor="@color/white"
+                app:bgColor="@color/transparent"
                 app:bgRadius="5dp"
-                app:shadowClipInLength="0dp"
+                app:shadowClipInLength="10dp"
                 app:shadowEndColor="@color/endcolor"
-                app:shadowStartColor="@color/startcolor"
-                app:shadowWidth="10dp">
+                app:shadowStartColor="@color/c_press_bt"
+                app:shadowWidth="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:text="Android" />
+                    android:gravity="center"
+                    android:text="空中\n课堂" />
             </com.github.mycardview.ShadowFrameLayout>
 
             <LinearLayout
@@ -352,6 +353,21 @@
              android:text="阴影使用线性渐变(没有默认的渐变效果好)"
              android:textSize="11sp"
              />
+        <com.github.mycardview.ShadowFrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            app:bgColor="@color/white"
+            app:bgRadius="5dp"
+            app:shadowClipInLength="4dp"
+            app:shadowStartColor="#1C000000"
+            app:shadowWidth="12dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Android" />
+        </com.github.mycardview.ShadowFrameLayout>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

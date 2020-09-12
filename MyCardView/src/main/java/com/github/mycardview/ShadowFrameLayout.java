@@ -424,13 +424,13 @@ public class ShadowFrameLayout extends FrameLayout {
                 horizontalPath.reset();
             }
             if (isInEditMode()) {
-                horizontalPath.moveTo(getShadowWidth() + shadowClipInLength, 0);
-                horizontalPath.lineTo(contentWidth + getShadowWidth() - shadowClipInLength, 0);
-                horizontalPath.lineTo(contentWidth + getShadowWidth() - shadowClipInLength, getShadowWidth());
-                horizontalPath.lineTo(getShadowWidth() + shadowClipInLength, getShadowWidth());
+                horizontalPath.moveTo(getShadowWidth() , 0);
+                horizontalPath.lineTo(contentWidth + getShadowWidth() , 0);
+                horizontalPath.lineTo(contentWidth + getShadowWidth() , getShadowWidth()+shadowClipInLength);
+                horizontalPath.lineTo(getShadowWidth() , getShadowWidth()+shadowClipInLength);
                 horizontalPath.close();
             } else {
-                horizontalPath.addRect(new RectF(getShadowWidth() + shadowClipInLength, 0, contentWidth + getShadowWidth() - shadowClipInLength, getShadowWidth()), Path.Direction.CW);
+                horizontalPath.addRect(new RectF(getShadowWidth()+shadowClipInLength , 0, contentWidth + getShadowWidth()+shadowClipInLength , getShadowWidth()+shadowClipInLength), Path.Direction.CW);
             }
 
 
