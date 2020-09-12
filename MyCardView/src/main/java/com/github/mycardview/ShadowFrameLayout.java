@@ -99,7 +99,9 @@ public class ShadowFrameLayout extends FrameLayout {
 
         onlyLinear = typedArray.getBoolean(R.styleable.ShadowFrameLayout_onlyLinear, false);
         shadowClipOutLength = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowClipOutLength, 0);
+        shadowClipOutLength = (int) (shadowClipOutLength + 0.5f);
         shadowClipInLength = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowClipInLength, 0);
+        shadowClipInLength = (int) (shadowClipInLength + 0.5f);
         controlPointFirstY= typedArray.getFloat(R.styleable.ShadowFrameLayout_controlPointFirstY,R.fraction.customCardView_default_controlPointFirstY);
         controlPointSecondY = typedArray.getFloat(R.styleable.ShadowFrameLayout_controlPointSecondY,R.fraction.customCardView_default_controlPointSecondY);
 
@@ -290,18 +292,20 @@ public class ShadowFrameLayout extends FrameLayout {
             canvas.save();
             shadowPaint.setShader(horizontalLinearGradient);
             canvas.drawPath(horizontalPath, shadowPaint);
-            canvas.translate(0, contentHeight + getShadowWidth());
+            canvas.rotate(180,getWidth()/2,getHeight()/2);
+//            canvas.translate(0, contentHeight + getShadowWidth()-shadowClipInLength);
             /*顶部和底部的颜色渐变方向相反，需要重新设置shader*/
-            shadowPaint.setShader(horizontalBottomLinearGradient);
+//            shadowPaint.setShader(null);
+//            shadowPaint.setColor(Color.RED);
+//            shadowPaint.setShader(horizontalBottomLinearGradient);
             canvas.drawPath(horizontalPath, shadowPaint);
             canvas.restore();
 
             canvas.save();
             shadowPaint.setShader(verticalLinearGradient);
             canvas.drawPath(verticalPath, shadowPaint);
-            canvas.translate(contentWidth + getShadowWidth(), 0);
-            /*左边和右边的颜色渐变方向相反，需要重新设置shader*/
-            shadowPaint.setShader(verticalRightLinearGradient);
+            canvas.rotate(180,getWidth()/2,getHeight()/2);
+//            shadowPaint.setShader(verticalRightLinearGradient);
             canvas.drawPath(verticalPath, shadowPaint);
             canvas.restore();
 
@@ -441,12 +445,12 @@ public class ShadowFrameLayout extends FrameLayout {
             }
             if (isInEditMode()) {
                 verticalPath.moveTo(0, getShadowWidth() + shadowClipInLength);
-                verticalPath.lineTo(getShadowWidth(), getShadowWidth() + shadowClipInLength);
-                verticalPath.lineTo(getShadowWidth(), getShadowWidth() + contentHeight - shadowClipInLength);
+                verticalPath.lineTo(getShadowWidth()+shadowClipInLength, getShadowWidth() + shadowClipInLength);
+                verticalPath.lineTo(getShadowWidth()+shadowClipInLength, getShadowWidth() + contentHeight - shadowClipInLength);
                 verticalPath.lineTo(0, getShadowWidth() + contentHeight - shadowClipInLength);
                 verticalPath.close();
             } else {
-                verticalPath.addRect(new RectF(0, getShadowWidth() + shadowClipInLength, getShadowWidth(), getShadowWidth() + contentHeight - shadowClipInLength), Path.Direction.CW);
+                verticalPath.addRect(new RectF(0, getShadowWidth() + shadowClipInLength, getShadowWidth()+shadowClipInLength, getShadowWidth() + contentHeight - shadowClipInLength), Path.Direction.CW);
             }
         }
 
