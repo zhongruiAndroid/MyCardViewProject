@@ -10,15 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="30dp"
         tools:context=".TestActivity">
+
+        <FrameLayout
+            android:id="@+id/flTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <com.test.mycardview.YanHuaImageView
+                android:layout_width="90dp"
+                android:background="@color/black"
+                android:layout_height="90dp"
+                android:src="@drawable/yanhua" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingBottom="30dp"
+            android:orientation="horizontal"
             android:paddingTop="30dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="50dp"
+            android:paddingBottom="30dp">
 
             <com.github.mycardview.ShadowFrameLayout
                 android:id="@+id/ccv"
@@ -43,8 +58,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="50dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -53,26 +68,26 @@
                     android:layout_height="wrap_content"
                     android:background="@color/app_hint_color"
                     android:gravity="center"
-                    android:textColor="@color/colorAccent"
-                    android:text="点击选择内部颜色" />
+                    android:text="点击选择内部颜色"
+                    android:textColor="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/tvEndColor"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@color/centercolor"
-                    android:textColor="@color/colorAccent"
                     android:gravity="center"
-                    android:text="点击选择外部颜色" />
+                    android:text="点击选择外部颜色"
+                    android:textColor="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/tvBgColor"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:textColor="@color/colorAccent"
                     android:gravity="center"
-                    android:text="点击选择背景颜色" />
+                    android:text="点击选择背景颜色"
+                    android:textColor="@color/colorAccent" />
             </LinearLayout>
         </LinearLayout>
 
@@ -346,13 +361,14 @@
                 android:layout_weight="1"
                 android:max="10" />
         </LinearLayout>
-         <android.support.v7.widget.AppCompatCheckBox
-             android:id="@+id/cbChangeLinear"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="阴影使用线性渐变(没有默认的渐变效果好)"
-             android:textSize="11sp"
-             />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbChangeLinear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="阴影使用线性渐变(没有默认的渐变效果好)"
+            android:textSize="11sp" />
+
         <com.github.mycardview.ShadowFrameLayout
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -362,6 +378,7 @@
             app:shadowClipInLength="4dp"
             app:shadowStartColor="#1C000000"
             app:shadowWidth="12dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

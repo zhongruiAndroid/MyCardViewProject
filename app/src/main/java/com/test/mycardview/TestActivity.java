@@ -1,8 +1,11 @@
 package com.test.mycardview;
 
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.graphics.PointF;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -68,7 +72,15 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 ccv.setOnlyLinear(cbChangeLinear.isChecked());
             }
         });
-
+        FrameLayout flTest = findViewById(R.id.flTest);
+        flTest.setClipToOutline(true);
+       /* flTest.setBackground(new ColorDrawable() {
+            @Override
+            public void getOutline(@NonNull Outline outline) {
+                super.getOutline(outline);
+                outline.setRoundRect(this.getBounds(),dp2px(20) );
+            }
+        });*/
         tvStartColor = findViewById(R.id.tvStartColor);
         tvStartColor.setOnClickListener(this);
 
@@ -155,12 +167,13 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         sbShadowAlpha.setProgress(100);
     }
 
-    public PointF test(float fraction, PointF start,PointF control1,PointF control2,PointF endPoint){
+    public PointF test(float fraction, PointF start, PointF control1, PointF control2, PointF endPoint) {
         PointF pointF = new PointF();
-        pointF.x = (float) (Math.pow((1 - fraction),3)*start.x +3 * control1.x*fraction*Math.pow((1-fraction),2)+3*control2.x*Math.pow(fraction,2)*(1-fraction)+endPoint.x*Math.pow(fraction,3));
-        pointF.y = (float) (Math.pow((1 - fraction),3)*start.y +3 * control1.y*fraction*Math.pow((1-fraction),2)+3*control2.y*Math.pow(fraction,2)*(1-fraction)+endPoint.y*Math.pow(fraction,3));
+        pointF.x = (float) (Math.pow((1 - fraction), 3) * start.x + 3 * control1.x * fraction * Math.pow((1 - fraction), 2) + 3 * control2.x * Math.pow(fraction, 2) * (1 - fraction) + endPoint.x * Math.pow(fraction, 3));
+        pointF.y = (float) (Math.pow((1 - fraction), 3) * start.y + 3 * control1.y * fraction * Math.pow((1 - fraction), 2) + 3 * control2.y * Math.pow(fraction, 2) * (1 - fraction) + endPoint.y * Math.pow(fraction, 3));
         return pointF;
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -211,7 +224,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private int getColorByAlpha(int color, int alpha) {
-        if(color==0){
+        if (color == 0) {
             return Color.TRANSPARENT;
         }
         return Color.argb(alpha, getRGB(color)[0], getRGB(color)[1], getRGB(color)[2]);
@@ -220,7 +233,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        Log.i("=====","=====progress:="+progress);
+        Log.i("=====", "=====progress:=" + progress);
         switch (seekBar.getId()) {
             case R.id.sbStartColor:
                 startColorAlpha = progress;
@@ -246,7 +259,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 ccv.setBgRadiusRightBottom(dp2px(progress));
                 break;
             case R.id.sbShadowAlpha:
-                ccv.setShadowAlpha(progress*1f/100);
+                ccv.setShadowAlpha(progress * 1f / 100);
                 break;
             case R.id.sbShadowWidth:
                 ccv.setShadowWidth(dp2px(progress));
