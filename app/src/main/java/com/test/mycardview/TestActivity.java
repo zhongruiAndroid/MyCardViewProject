@@ -74,13 +74,13 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         });
         FrameLayout flTest = findViewById(R.id.flTest);
         flTest.setClipToOutline(true);
-       /* flTest.setBackground(new ColorDrawable() {
+        flTest.setBackground(new ColorDrawable() {
             @Override
             public void getOutline(@NonNull Outline outline) {
                 super.getOutline(outline);
                 outline.setRoundRect(this.getBounds(),dp2px(20) );
             }
-        });*/
+        });
         tvStartColor = findViewById(R.id.tvStartColor);
         tvStartColor.setOnClickListener(this);
 
