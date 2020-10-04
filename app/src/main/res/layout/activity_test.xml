@@ -25,6 +25,12 @@
                 android:layout_height="90dp"
                 android:src="@drawable/yanhua" />
         </FrameLayout>
+        <TextView
+            android:id="@+id/tvTestPackage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="android"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

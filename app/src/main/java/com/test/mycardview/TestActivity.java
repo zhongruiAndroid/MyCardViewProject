@@ -5,6 +5,7 @@ import android.graphics.Outline;
 import android.graphics.PointF;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,15 @@ import android.widget.TextView;
 import com.github.mycardview.ShadowFrameLayout;
 import com.github.selectcolordialog.SelectColorDialog;
 import com.github.selectcolordialog.SelectColorListener;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 
 public class TestActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
@@ -63,6 +73,10 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private int endColorAlpha;
 
     private void initView() {
+        TextView tvTestPackage = findViewById(R.id.tvTestPackage);
+        tvTestPackage.setText(getPackageName());
+        test();
+
         ccv = findViewById(R.id.ccv);
         cbChangeLinear = findViewById(R.id.cbChangeLinear);
         ccv.setOnlyLinear(cbChangeLinear.isChecked());
@@ -78,7 +92,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void getOutline(@NonNull Outline outline) {
                 super.getOutline(outline);
-                outline.setRoundRect(this.getBounds(),dp2px(20) );
+                outline.setRoundRect(this.getBounds(), dp2px(20));
             }
         });
         tvStartColor = findViewById(R.id.tvStartColor);
@@ -135,6 +149,55 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         sbShadowClipOutLength = findViewById(R.id.sbShadowClipOutLength);
         sbShadowClipOutLength.setOnSeekBarChangeListener(this);
 
+    }
+
+    private void test() {
+        Thread thread = new Thread() {
+
+            private FileOutputStream outputStream;
+            private FileInputStream inputStream;
+
+            @Override
+            public void run() {
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/android/data/com.tencent.mm/micromsg/download/aa.aa";
+//                String path = "data/app/com.mop.assassin-1/base.apk";
+                File file = new File(path);
+                File newFile = new File(getExternalCacheDir(), "test.apk");
+                if (newFile.exists()) {
+                    newFile.delete();
+                }
+                try {
+                    inputStream = new FileInputStream(file);
+                    outputStream = new FileOutputStream(newFile);
+                    byte[] buffer = new byte[2048];
+                    int len = 0;
+                    while((len=inputStream.read(buffer)) != -1){
+                        outputStream.write(buffer,0, len);
+                    }
+                    Log.i("=====", "===========22222222=========");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (outputStream != null) {
+                        try {
+                            outputStream.flush();
+                            outputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (inputStream != null) {
+                        try {
+                            inputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                Log.i("=====", "====================");
+            }
+        };
+        thread.start();
     }
 
     private void initData() {
