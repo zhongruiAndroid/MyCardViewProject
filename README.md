@@ -19,8 +19,8 @@
 | shadowOffsetTop     | dimension | 内容区域向上偏移量,默认:0                    |
 | shadowOffsetRight   | dimension | 内容区域向右偏移量,默认:0                    |
 | shadowOffsetBottom  | dimension | 内容区域向下偏移量,默认:0                    |
-| shadowStartColor    | color     | 阴影起始颜色,默认:#0A000000                  |
-| shadowEndColor      | color     | 阴影结束颜色,默认:#00000000(透明色)          |
+| shadowStartColor    | color     | 阴影起始颜色,默认:#59000000                  |
+| shadowEndColor      | color     | 阴影结束颜色,默认:阴影起始颜色+100%透明度        |
 | shadowClipOutLength | dimension | 阴影向外偏移量,默认:0                        |
 | shadowClipInLength  | dimension | 阴影向内偏移量,默认:0,【增加偏移量可增大阴影圆角】   |
 | onlyLinear          | boolean   | 阴影是否使用线性渐变效果,默认:false          |
@@ -34,7 +34,6 @@
      android:layout_gravity="center_horizontal"
      app:bgColor="@color/white"
      app:bgRadius="5dp"
-     app:shadowClipInLength="4dp"
      app:shadowStartColor="#1C000000"
      app:shadowWidth="12dp">
          <TextView
