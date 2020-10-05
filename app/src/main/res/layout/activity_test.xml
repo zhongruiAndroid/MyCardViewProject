@@ -27,8 +27,8 @@
                 android:layout_gravity="center_horizontal"
                 app:bgColor="@color/white"
                 app:bgRadius="5dp"
-                app:shadowClipInLength="0dp"
-                app:shadowEndColor="@color/endcolor"
+                app:shadowClipInLength="10dp"
+                app:shadowEndColor="@color/black"
                 app:shadowStartColor="@color/startcolor"
                 app:shadowWidth="10dp">
 
@@ -55,14 +55,6 @@
                     android:textColor="@color/colorAccent"
                     android:text="点击选择内部颜色" />
 
-                <TextView
-                    android:id="@+id/tvEndColor"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/centercolor"
-                    android:textColor="@color/colorAccent"
-                    android:gravity="center"
-                    android:text="点击选择外部颜色" />
 
                 <TextView
                     android:id="@+id/tvBgColor"
@@ -352,6 +344,39 @@
             android:text="阴影使用线性渐变(没有默认的渐变效果好)"
             android:textSize="11sp"
             />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="颜色渐变参数1" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowGradient1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:text="颜色渐变参数2" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbShadowGradient2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10" />
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

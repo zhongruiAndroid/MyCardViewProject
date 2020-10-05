@@ -18,6 +18,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
+import android.support.annotation.IntRange;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -80,6 +81,13 @@ public class ShadowFrameLayout extends FrameLayout {
 
 
         float bgRadius = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadius, dp2px(5));
+        int tempShadowClipInLength=0;
+        if(bgRadius<=0){
+            tempShadowClipInLength = 0;
+        }else{
+            tempShadowClipInLength = (int)(bgRadius * Math.cos(Math.toRadians(45)));
+        }
+
         bgRadiusLeftTop = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadiusLeftTop, bgRadius);
         bgRadiusRightTop = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadiusRightTop, bgRadius);
         bgRadiusRightBottom = typedArray.getDimension(R.styleable.ShadowFrameLayout_bgRadiusRightBottom, bgRadius);
@@ -94,14 +102,18 @@ public class ShadowFrameLayout extends FrameLayout {
         shadowOffsetBottom = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowOffsetBottom, 0);
 
         shadowStartColor = typedArray.getColor(R.styleable.ShadowFrameLayout_shadowStartColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowStartColor));
-        shadowEndColor = typedArray.getColor(R.styleable.ShadowFrameLayout_shadowEndColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowEndColor));
-
+        shadowEndColor = typedArray.getColor(R.styleable.ShadowFrameLayout_shadowEndColor,argb(0,Color.red(shadowStartColor),Color.green(shadowStartColor),Color.blue(shadowStartColor)));
+//        shadowEndColor = typedArray.getColor(R.styleable.ShadowFrameLayout_shadowEndColor, ContextCompat.getColor(getContext(), R.color.customCardView_default_shadowEndColor));
 
         onlyLinear = typedArray.getBoolean(R.styleable.ShadowFrameLayout_onlyLinear, false);
         shadowClipOutLength = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowClipOutLength, 0);
         shadowClipOutLength = (int) (shadowClipOutLength + 0.5f);
         shadowClipInLength = typedArray.getDimension(R.styleable.ShadowFrameLayout_shadowClipInLength, 0);
-        shadowClipInLength = (int) (shadowClipInLength + 0.5f);
+        if(shadowClipInLength<=0){
+            shadowClipInLength=tempShadowClipInLength;
+        }else{
+            shadowClipInLength = (int) (shadowClipInLength + 0.5f);
+        }
         controlPointFirstY= typedArray.getFloat(R.styleable.ShadowFrameLayout_controlPointFirstY,R.fraction.customCardView_default_controlPointFirstY);
         controlPointSecondY = typedArray.getFloat(R.styleable.ShadowFrameLayout_controlPointSecondY,R.fraction.customCardView_default_controlPointSecondY);
 
@@ -470,6 +482,20 @@ public class ShadowFrameLayout extends FrameLayout {
     }
 
     public void setBgRadius(float bgRadius) {
+        setBgRadius(bgRadius,true);
+    }
+    public void setBgRadius(float bgRadius,boolean needAutoSetShadowClipInLength) {
+        if(bgRadius<0){
+            bgRadius=0;
+        }
+        if(needAutoSetShadowClipInLength){
+            if(bgRadius<=0){
+                this.shadowClipInLength = 0;
+            }else{
+                this.shadowClipInLength = (int)(bgRadius * Math.cos(Math.toRadians(45)));
+            }
+            computeShadowAndBgNoInvalidate(true);
+        }
         setBgRadiusLeftTop(bgRadius);
         setBgRadiusRightTop(bgRadius);
         setBgRadiusRightBottom(bgRadius);
@@ -640,10 +666,17 @@ public class ShadowFrameLayout extends FrameLayout {
     public int getShadowStartColor() {
         return shadowStartColor;
     }
-
+    private static int argb(
+            @IntRange(from = 0, to = 255) int alpha,
+            @IntRange(from = 0, to = 255) int red,
+            @IntRange(from = 0, to = 255) int green,
+            @IntRange(from = 0, to = 255) int blue) {
+        return (alpha << 24) | (red << 16) | (green << 8) | blue;
+    }
     public void setShadowStartColor(int shadowStartColor) {
         if (this.shadowStartColor != shadowStartColor) {
             this.shadowStartColor = shadowStartColor;
+            setShadowEndColor(argb(0,Color.red(shadowStartColor),Color.green(shadowStartColor),Color.blue(shadowStartColor)));
             computeShadow(true);
         }
     }
@@ -748,5 +781,9 @@ public class ShadowFrameLayout extends FrameLayout {
         shadowDrawable.setNeedComputeRect(needCompute);
         shadowDrawable.setNeedComputeShadow(needCompute);
         this.invalidateDrawable(shadowDrawable);
+    }
+    private void computeShadowAndBgNoInvalidate(boolean needCompute) {
+        shadowDrawable.setNeedComputeRect(needCompute);
+        shadowDrawable.setNeedComputeShadow(needCompute);
     }
 }

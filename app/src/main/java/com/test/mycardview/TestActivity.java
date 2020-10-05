@@ -3,7 +3,9 @@ package com.test.mycardview;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.support.annotation.IntRange;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatSeekBar;
@@ -22,7 +24,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     private ShadowFrameLayout ccv;
     private TextView tvStartColor;
-    private TextView tvEndColor;
     private TextView tvBgColor;
     private AppCompatSeekBar sbStartColor;
     private AppCompatSeekBar sbEndColor;
@@ -42,6 +43,9 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private SelectColorDialog selectColorDialog;
     private AppCompatCheckBox cbChangeLinear;
 
+    private AppCompatSeekBar sbShadowGradient1;
+    private AppCompatSeekBar sbShadowGradient2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -52,14 +56,32 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private int startColor;
-    private int endColor;
     private int bgColor;
 
     private int startColorAlpha;
     private int endColorAlpha;
 
+    public static int argb(
+            @IntRange(from = 0, to = 255) int alpha,
+            @IntRange(from = 0, to = 255) int red,
+            @IntRange(from = 0, to = 255) int green,
+            @IntRange(from = 0, to = 255) int blue) {
+        return (alpha << 24) | (red << 16) | (green << 8) | blue;
+    }
+
+    float ratio = 1;
+
+    float ratio2 = 255;
+
     private void initView() {
+
         ccv = findViewById(R.id.ccv);
+        sbShadowGradient1 = findViewById(R.id.sbShadowGradient1);
+        sbShadowGradient1.setOnSeekBarChangeListener(this);
+
+        sbShadowGradient2 = findViewById(R.id.sbShadowGradient2);
+        sbShadowGradient2.setOnSeekBarChangeListener(this);
+
         cbChangeLinear = findViewById(R.id.cbChangeLinear);
         ccv.setOnlyLinear(cbChangeLinear.isChecked());
         cbChangeLinear.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -72,8 +94,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         tvStartColor = findViewById(R.id.tvStartColor);
         tvStartColor.setOnClickListener(this);
 
-        tvEndColor = findViewById(R.id.tvEndColor);
-        tvEndColor.setOnClickListener(this);
 
         tvBgColor = findViewById(R.id.tvBgColor);
         tvBgColor.setOnClickListener(this);
@@ -127,17 +147,15 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initData() {
         startColor = ActivityCompat.getColor(this, R.color.black);
-        endColor = ActivityCompat.getColor(this, R.color.endcolor);
         bgColor = Color.WHITE;
 
-        startColorAlpha = 13;
-        endColorAlpha = 255;
+        startColorAlpha = 35;
+        endColorAlpha = 0;
 
         sbStartColor.setProgress(startColorAlpha);
         sbEndColor.setProgress(endColorAlpha);
 
         tvStartColor.setBackgroundColor(startColor);
-        tvEndColor.setBackgroundColor(endColor);
         tvBgColor.setBackgroundColor(bgColor);
 
         ccv.setShadowWidth(dp2px(13));
@@ -153,19 +171,22 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         sbBgRadiusRightBottom.setProgress(5);
 
         sbShadowAlpha.setProgress(100);
+
+        sbShadowGradient1.setProgress((int) (ccv.getControlPointFirstY() * 10));
+        sbShadowGradient2.setProgress((int) (ccv.getControlPointSecondY() * 10));
     }
 
-    public PointF test(float fraction, PointF start,PointF control1,PointF control2,PointF endPoint){
+    public PointF test(float fraction, PointF start, PointF control1, PointF control2, PointF endPoint) {
         PointF pointF = new PointF();
-        pointF.x = (float) (Math.pow((1 - fraction),3)*start.x +3 * control1.x*fraction*Math.pow((1-fraction),2)+3*control2.x*Math.pow(fraction,2)*(1-fraction)+endPoint.x*Math.pow(fraction,3));
-        pointF.y = (float) (Math.pow((1 - fraction),3)*start.y +3 * control1.y*fraction*Math.pow((1-fraction),2)+3*control2.y*Math.pow(fraction,2)*(1-fraction)+endPoint.y*Math.pow(fraction,3));
+        pointF.x = (float) (Math.pow((1 - fraction), 3) * start.x + 3 * control1.x * fraction * Math.pow((1 - fraction), 2) + 3 * control2.x * Math.pow(fraction, 2) * (1 - fraction) + endPoint.x * Math.pow(fraction, 3));
+        pointF.y = (float) (Math.pow((1 - fraction), 3) * start.y + 3 * control1.y * fraction * Math.pow((1 - fraction), 2) + 3 * control2.y * Math.pow(fraction, 2) * (1 - fraction) + endPoint.y * Math.pow(fraction, 3));
         return pointF;
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvStartColor:
-            case R.id.tvEndColor:
             case R.id.tvBgColor:
                 showSelectColorDialog(v.getId());
                 break;
@@ -182,11 +203,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                         startColor = color;
                         ccv.setShadowStartColor(getColorByAlpha(startColor, startColorAlpha));
                         tvStartColor.setBackgroundColor(getColorByAlpha(startColor, startColorAlpha));
-                        break;
-                    case R.id.tvEndColor:
-                        endColor = color;
-                        ccv.setShadowEndColor(getColorByAlpha(endColor, endColorAlpha));
-                        tvEndColor.setBackgroundColor(getColorByAlpha(endColor, endColorAlpha));
                         break;
                     case R.id.tvBgColor:
                         bgColor = color;
@@ -211,7 +227,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private int getColorByAlpha(int color, int alpha) {
-        if(color==0){
+        if (color == 0) {
             return Color.TRANSPARENT;
         }
         return Color.argb(alpha, getRGB(color)[0], getRGB(color)[1], getRGB(color)[2]);
@@ -220,7 +236,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        Log.i("=====","=====progress:="+progress);
+        Log.i("=====", "=====progress:=" + progress);
         switch (seekBar.getId()) {
             case R.id.sbStartColor:
                 startColorAlpha = progress;
@@ -228,7 +244,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.sbEndColor:
                 endColorAlpha = progress;
-                ccv.setShadowEndColor(getColorByAlpha(endColor, progress));
+                ccv.setShadowEndColor(getColorByAlpha(startColor, progress));
                 break;
             case R.id.sbBgRadius:
                 ccv.setBgRadius(dp2px(progress));
@@ -246,7 +262,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 ccv.setBgRadiusRightBottom(dp2px(progress));
                 break;
             case R.id.sbShadowAlpha:
-                ccv.setShadowAlpha(progress*1f/100);
+                ccv.setShadowAlpha(progress * 1f / 100);
                 break;
             case R.id.sbShadowWidth:
                 ccv.setShadowWidth(dp2px(progress));
@@ -268,6 +284,14 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.sbShadowClipOutLength:
                 ccv.setShadowClipOutLength(dp2px(progress));
+                break;
+            case R.id.sbShadowGradient1:
+                float ratio1 = progress * 1f / sbShadowGradient1.getMax();
+                ccv.setControlPointFirstY(ratio1);
+                break;
+            case R.id.sbShadowGradient2:
+                float ratio2 = progress * 1f / sbShadowGradient2.getMax();
+                ccv.setControlPointSecondY(ratio2);
                 break;
         }
     }

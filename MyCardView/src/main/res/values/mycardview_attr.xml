@@ -45,7 +45,7 @@
     <dimen name="customCardView_default_shadowWidth">12dp</dimen>
     <dimen name="customCardView_default_shadowOffsetX">0px</dimen>
     <dimen name="customCardView_default_shadowOffsetY">0px</dimen>
-    <color name="customCardView_default_shadowStartColor">#0A000000</color>
+    <color name="customCardView_default_shadowStartColor">#59000000</color>
     <color name="customCardView_default_shadowEndColor">#00000000</color>
     <fraction name="customCardView_default_controlPointFirstY">0.8</fraction>
     <fraction name="customCardView_default_controlPointSecondY">1</fraction>
