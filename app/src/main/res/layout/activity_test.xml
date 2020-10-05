@@ -27,8 +27,7 @@
                 android:layout_gravity="center_horizontal"
                 app:bgColor="@color/white"
                 app:bgRadius="5dp"
-                app:shadowClipInLength="10dp"
-                app:shadowEndColor="@color/black"
+                app:shadowClipInLength="0dp"
                 app:shadowStartColor="@color/startcolor"
                 app:shadowWidth="10dp">
 
